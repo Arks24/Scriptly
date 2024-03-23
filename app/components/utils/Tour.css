@@ -1,0 +1,11 @@
+.highlightsection {
+    border: 4px solid white;
+    border-radius: 50px !important;
+    background-color: blue;
+    color: red;
+    z-index: 10;
+}
+
+/* .higlightsection .introjs-tooltip {
+    border-radius: 50px !important;
+} */
