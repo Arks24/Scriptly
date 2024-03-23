@@ -4,13 +4,13 @@ import { Fragment, useEffect } from "react";
 import ChatHistory from "./modals/ChatHistory";
 
 
-const DeleteModelWrapper = ({ isOpen, setisOpen,checkProfile, closeProfileModal }) => {
-    
-    console.log(isOpen)
-    if(checkProfile && isOpen) console.log(closeProfileModal())
+const DeleteChatModel = ({ isOpen, setisOpen, checkProfile, closeProfileModal }) => {
+
+    console.log(isOpen, '+++++++')
+    // if(checkProfile && isOpen) console.log(closeProfileModal())
 
     const closeDeleteModal = () => {
-        console.log(isOpen)
+        // console.log(isOpen)
         setisOpen(false)
     }
 
@@ -62,4 +62,4 @@ const DeleteModelWrapper = ({ isOpen, setisOpen,checkProfile, closeProfileModal 
     )
 }
 
-export default DeleteModelWrapper
+export default DeleteChatModel

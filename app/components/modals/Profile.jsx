@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import MessageModalWrapper from '../MessageModalWrapper'
 import DeleteChatModal from '../DeleteChatModal'
 
-const Profile = ({isOpen, closeModal, closeProfileModal }) => {
+const Profile = ({ isOpen, closeModal, closeProfileModal }) => {
 
   const [isChatHistory, setisChatHistory] = useState(false)
   const [isInformation, setisInformation] = useState(false)
@@ -12,7 +12,7 @@ const Profile = ({isOpen, closeModal, closeProfileModal }) => {
   console.log(isOpen)
 
   const handleChatHistory = () => {
-    if(isOpen) closeProfileModal()
+    closeProfileModal()
     setisChatHistory(true)
   }
 
@@ -37,22 +37,22 @@ const Profile = ({isOpen, closeModal, closeProfileModal }) => {
     setisInformation(true)
   }
 
-  const handleCloseButton = () => {
-    closeModal()
-  }
+  // const handleCloseButton = () => {
+  //   closeModal()
+  // }
 
   const handleLogout = () => console.log('logout')
 
   return (
     <>
-      <DeleteChatModal isOpen={isChatHistory} checkProfile={isOpen} closeProfileModal={closeProfileModal} setisOpen={setisChatHistory} />
-      <MessageModalWrapper isOpen={isInformation} messageInformation={messageInformation} setisOpen={setisInformation}   /> 
+
+      <MessageModalWrapper isOpen={isInformation} messageInformation={messageInformation} setisOpen={setisInformation} />
 
       <div className={`${(isChatHistory || isInformation) && 'blur-xs'} py-1`}>
         <div className='flex justify-between border-white border-b'>
 
           <h1 className='text-white  font-normal text-2xl text-left mx-4 p-6 my-2'>Settings </h1>
-          <button onClick={() => handleCloseButton()}>
+          <button >
             <p className='text-3xl p-4 px-6 text-white'>X</p>
           </button>
         </div>
@@ -77,7 +77,7 @@ const Profile = ({isOpen, closeModal, closeProfileModal }) => {
           <div className='flex justify-between'>
             <p className='text-lg mt-2 pl-4 font-normal text-white '>Delete All Chats</p>
             <div className=' mt-2 pl-4 '>
-              <button onClick={() => handleChatHistory()} className='text-center text-base bg-modalbtnredbg text-white px-8  mx-1 rounded-lg p-2 font-base'>Delete</button>
+              <button onClick={handleChatHistory} className='text-center text-base bg-modalbtnredbg text-white px-8  mx-1 rounded-lg p-2 font-base'>Delete</button>
             </div>
           </div>
 
@@ -95,6 +95,8 @@ const Profile = ({isOpen, closeModal, closeProfileModal }) => {
           <button onClick={() => handleLogout()} className='text-center bg-logoColor text-base text-white px-28  mx-1 rounded-lg py-3 font-base'>Logout</button>
         </div>
       </div>
+
+      {isChatHistory && <DeleteChatModal isOpen={isChatHistory} setisOpen={setisChatHistory} closeProfileModal={closeProfileModal} />}
     </>
   )
 }
