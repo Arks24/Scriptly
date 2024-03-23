@@ -2,13 +2,9 @@
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment } from "react";
 import Youtube from "./modals/Youtube";
-import ProfileModal from "./modals/ProfileModal";
-import WelcomeModal from "./modals/WelcomeModal";
 
-const ModelWrapper = ({ isOpen, setisOpen, ModelType,closeProfileModal }) => {
-
-
-    if(ModelType && isOpen) console.log(ModelType)
+const YoutubeModal = ({ isOpen, setisOpen, closeProfileModal }) => {
+console.log(isOpen)
     const closeModal = () => {
         setisOpen(false)
     }
@@ -27,7 +23,7 @@ const ModelWrapper = ({ isOpen, setisOpen, ModelType,closeProfileModal }) => {
                         leaveTo="opacity-0"
                     >
                         <div className="fixed blur-lg inset-0 bg-modalbg bg-opacity-40" />
-                       
+
                     </Transition.Child>
 
                     <div className="fixed inset-0  overflow-y-auto">
@@ -47,11 +43,9 @@ const ModelWrapper = ({ isOpen, setisOpen, ModelType,closeProfileModal }) => {
                                         className="text-lg font-medium leading-6 text-gray-900"
                                     ></Dialog.Title>
 
-                                    {(ModelType === "welcome") && <WelcomeModal closeModal={closeModal} />} 
-                                    {(ModelType === "youtube") && <Youtube  closeModal={closeModal}  />} 
-                                    {(ModelType === "profile") && <ProfileModal closeProfileModal={closeProfileModal}  closeModal={closeProfileModal} />} 
-                                
-                                    </Dialog.Panel>
+                                     <Youtube closeModal={closeModal} />
+
+                                </Dialog.Panel>
                             </Transition.Child>
                         </div>
                     </div>
@@ -62,4 +56,4 @@ const ModelWrapper = ({ isOpen, setisOpen, ModelType,closeProfileModal }) => {
     )
 }
 
-export default ModelWrapper
+export default YoutubeModal

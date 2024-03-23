@@ -7,7 +7,7 @@ const Answer = ({ answer }) => {
     return (
         <div className='w-full  bg-white rounded-xl shadow-md shadow-black/30 m-2 my-3 p-3'>
             
-            <div className=' relative mx-2'>
+            <div className=' relative '>
                 <Image src={Botlogo} width={100} height={20} alt='preview-logo' className='rounded-full  w-12 h-12 inline object-center' />
          
             <p className='inline'>Genetating Time 2.004sec</p>

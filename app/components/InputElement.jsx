@@ -16,9 +16,9 @@ const InputElement = ({ handleQuery }) => {
         setquery('')
     }
     return (
-        <div className=' w-4/5 mx-auto p-3 input-part' >
+        <div className=' w-4/5 mx-auto p-3 ' >
             <form onSubmit={handleSubmit}>
-                <div className='relative  '>
+                <div className='relative input-part '>
 
                     <input type='text' value={query} onChange={(e) => handleChange(e)} className='text-lgw-fullbg-white border border-black shadow-2xl p-4 w-full inline rounded-full border-none focus:border-none' placeholder='Get Started here... ' />
                         

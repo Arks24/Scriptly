@@ -2,7 +2,7 @@ import React from 'react'
 import { handleTourPart } from '../utils/Tour'
 
 
-const WelcomeModal = ({closeModal}) => {
+const Welcome = ({closeModal}) => {
   const handleCloseButton = () => closeModal()
   const handleTour = () => {
     console.log('tour')
@@ -38,4 +38,4 @@ const WelcomeModal = ({closeModal}) => {
   )
 }
 
-export default WelcomeModal
+export default Welcome

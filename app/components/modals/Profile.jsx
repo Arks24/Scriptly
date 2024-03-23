@@ -3,20 +3,22 @@ import React, { useState } from 'react'
 import MessageModalWrapper from '../MessageModalWrapper'
 import DeleteChatModal from '../DeleteChatModal'
 
-const ProfileModal = ({ closeModal, closeProfileModal }) => {
+const Profile = ({isOpen, closeModal, closeProfileModal }) => {
 
   const [isChatHistory, setisChatHistory] = useState(false)
   const [isInformation, setisInformation] = useState(false)
+  const [messageInformation, setmessageInformation] = useState({ type: '', text: '' })
 
+  console.log(isOpen)
 
   const handleChatHistory = () => {
-    // closeProfileModal()
+    if(isOpen) closeProfileModal()
     setisChatHistory(true)
   }
 
   const handleCancleSubscription = () => {
-    // closeModal()
-    handleMessageInformation(
+    // if(isOpen) closeProfileModal()
+    setmessageInformation(
       {
         type: 'subscription',
         text: 'In order to cancel your subscription please email support@skryptly.com from the email address associated with your account with the subject line “cancel subscription”.'
@@ -25,7 +27,8 @@ const ProfileModal = ({ closeModal, closeProfileModal }) => {
     setisInformation(true)
   }
   const handleDeleteAccount = () => {
-    handleMessageInformation(
+    // if(isOpen) closeProfileModal()
+    setmessageInformation(
       {
         type: 'account',
         text: 'In order to delete your account please email support@skryptly.com from the email address associated with your account with the subject line “delete my account”.'
@@ -42,8 +45,8 @@ const ProfileModal = ({ closeModal, closeProfileModal }) => {
 
   return (
     <>
-      <DeleteChatModal isOpen={isChatHistory} setisOpen={setisChatHistory} closeProfileModal={closeProfileModal} />
-      {/* <MessageModalWrapper isOpen={isInformation}  setisOpen={setisInformation}   />  */}
+      <DeleteChatModal isOpen={isChatHistory} checkProfile={isOpen} closeProfileModal={closeProfileModal} setisOpen={setisChatHistory} />
+      <MessageModalWrapper isOpen={isInformation} messageInformation={messageInformation} setisOpen={setisInformation}   /> 
 
       <div className={`${(isChatHistory || isInformation) && 'blur-xs'} py-1`}>
         <div className='flex justify-between border-white border-b'>
@@ -96,4 +99,4 @@ const ProfileModal = ({ closeModal, closeProfileModal }) => {
   )
 }
 
-export default ProfileModal
+export default Profile

@@ -1,24 +1,18 @@
 'use client'
 import { Dialog, Transition } from "@headlessui/react";
-import { Fragment, useEffect } from "react";
-import ChatHistory from "./modals/ChatHistory";
+import { Fragment } from "react";
+import Welcome from "./modals/Welcome";
 
-
-const DeleteModelWrapper = ({ isOpen, setisOpen,checkProfile, closeProfileModal }) => {
-    
-    console.log(isOpen)
-    if(checkProfile && isOpen) console.log(closeProfileModal())
-
-    const closeDeleteModal = () => {
-        console.log(isOpen)
+const WelcomeModal = ({ isOpen, setisOpen, closeProfileModal }) => {
+console.log(isOpen)
+    const closeModal = () => {
         setisOpen(false)
     }
-
 
     return (
         <>
             <Transition appear show={isOpen} as={Fragment}>
-                <Dialog as="div" className="relative z-50" onClose={closeDeleteModal}>
+                <Dialog as="div" className="relative z-10" onClose={closeModal}>
                     <Transition.Child
                         as={Fragment}
                         enter="ease-out duration-300"
@@ -49,7 +43,7 @@ const DeleteModelWrapper = ({ isOpen, setisOpen,checkProfile, closeProfileModal 
                                         className="text-lg font-medium leading-6 text-gray-900"
                                     ></Dialog.Title>
 
-                                    <ChatHistory closeModal={closeDeleteModal} />
+                                     <Welcome closeModal={closeModal} />
 
                                 </Dialog.Panel>
                             </Transition.Child>
@@ -62,4 +56,4 @@ const DeleteModelWrapper = ({ isOpen, setisOpen,checkProfile, closeProfileModal 
     )
 }
 
-export default DeleteModelWrapper
+export default WelcomeModal

@@ -1,37 +1,25 @@
 'use client'
 import { Dialog, Transition } from "@headlessui/react";
-import { Fragment, useEffect } from "react";
-import InformationModal from "./modals/InformationModal";
+import { Fragment } from "react";
+import InformationModal from "./modals/Information";
 
-import { useState } from "react";
 
-const MessageModelWrapper = ({ isOpen, closeProfileModal, ismessageOpen, setismessageOpen }) => {
+const MessageModelWrapper = ({ isOpen,setisOpen, messageInformation }) => {
 
     console.log(isOpen)
-    const [messageInformation, setmessageInformation] = useState({ type: '', text: '' })
 
 
     const closemessageModal = () => {
         console.log(isOpen)
-        closeProfileModal()
-        setismessageOpen(false)
-    }
-
-    const handleMessageInformation = (prop) => {
-        setmessageInformation(
-            {
-                type: prop.type,
-                text: prop.text
-            }
-        )
-
+        // closeProfileModal()
+        setisOpen(false)
     }
 
 
     return (
         <>
-            <Transition appear show={ismessageOpen} as={Fragment}>
-                <Dialog as="div" className="relative z-10" onmessageClose={closemessageModal}>
+            <Transition appear show={isOpen} as={Fragment}>
+                <Dialog as="div" className="relative z-50" onClose={closemessageModal}>
                     <Transition.Child
                         as={Fragment}
                         enter="ease-out duration-300"
@@ -62,7 +50,7 @@ const MessageModelWrapper = ({ isOpen, closeProfileModal, ismessageOpen, setisme
                                         className="text-lg font-medium leading-6 text-gray-900"
                                     ></Dialog.Title>
 
-                                    <InformationModal isOpen={isOpen} closeProfileModal={closeProfileModal} closeModal={closemessageModal} messageInformation={messageInformation} handleMessageInformation={handleMessageInformation} />
+                                    <InformationModal messageInformation={messageInformation} />
 
                                 </Dialog.Panel>
                             </Transition.Child>
