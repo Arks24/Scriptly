@@ -1,20 +1,12 @@
-'use client'
 import { Dialog, Transition } from "@headlessui/react";
-import { Fragment, useEffect } from "react";
-import ChatHistory from "./modals/ChatHistory";
+import { Fragment } from "react";
+import ChatHistory from "../modalsData/ChatHistory";
 
 
-const DeleteChatModel = ({ isOpen, setisOpen, checkProfile, closeProfileModal }) => {
-
-    console.log(isOpen, '+++++++')
-    // if(checkProfile && isOpen) console.log(closeProfileModal())
-
+const DeleteChatModel = ({ isOpen, setisOpen, closeProfileModal, setisInformation, messageInformation, setmessageInformation }) => {
     const closeDeleteModal = () => {
-        // console.log(isOpen)
         setisOpen(false)
     }
-
-
     return (
         <>
             <Transition appear show={isOpen} as={Fragment}>
@@ -43,13 +35,14 @@ const DeleteChatModel = ({ isOpen, setisOpen, checkProfile, closeProfileModal })
                                 leaveFrom="opacity-100 scale-100"
                                 leaveTo="opacity-0 scale-95"
                             >
-                                <Dialog.Panel className="w-full md:ml-60 md:mb-20 max-w-3xl transform overflow-hidden rounded-2xl bg-bgColor  text-left align-middle shadow-xl transition-all">
+                                <Dialog.Panel className="w-full md:ml-60 md:mb-20 max-w-3xl transform overflow-hidden rounded-xl bg-bgColor  text-left align-middle shadow-xl transition-all">
                                     <Dialog.Title
                                         as="h3"
                                         className="text-lg font-medium leading-6 text-gray-900"
                                     ></Dialog.Title>
 
-                                    <ChatHistory closeModal={closeDeleteModal} />
+
+                                    <ChatHistory closeModal={closeDeleteModal} closeProfileModal={closeProfileModal} setisInformation={setisInformation} messageInformation={messageInformation} setmessageInformation={setmessageInformation} />
 
                                 </Dialog.Panel>
                             </Transition.Child>

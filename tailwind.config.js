@@ -14,7 +14,9 @@ module.exports = {
       modalbtntext:'#2C7FD2',
       modalbtnredbg:'#E22727',
       white:'#ffffff',
-      black:'#0f0f0f'
+      black:'#0f0f0f',
+      paymenttext:'#666666',
+      green:'#006F1F'
     },
     extend: {
       backgroundImage: {
@@ -31,6 +33,14 @@ module.exports = {
         sans: ['var(--poppins-font)'],
       },
     },
+    borderRadius:{
+      'sm': '0.125rem',
+      'md': '0.375rem',
+      'lg': '0.5rem',
+      'xl':'20px',
+      'large':"45px",
+      'full': '9999px'
+    }
   },
   plugins: [],
 };

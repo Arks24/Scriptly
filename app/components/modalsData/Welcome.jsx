@@ -5,7 +5,6 @@ import { handleTourPart } from '../utils/Tour'
 const Welcome = ({closeModal}) => {
   const handleCloseButton = () => closeModal()
   const handleTour = () => {
-    console.log('tour')
     closeModal()
     handleTourPart()
     

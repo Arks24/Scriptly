@@ -1,10 +1,8 @@
-'use client'
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment } from "react";
-import Profile from '../components/modals/Profile'
+import Welcome from "../modalsData/Welcome";
 
-const ProfileModal = ({ isOpen, setisOpen, closeProfileModal }) => {
-console.log(isOpen)
+const WelcomeModal = ({ isOpen, setisOpen }) => {
     const closeModal = () => {
         setisOpen(false)
     }
@@ -37,13 +35,13 @@ console.log(isOpen)
                                 leaveFrom="opacity-100 scale-100"
                                 leaveTo="opacity-0 scale-95"
                             >
-                                <Dialog.Panel className="w-full md:ml-60 md:mb-20 max-w-3xl transform overflow-hidden rounded-2xl bg-bgColor  text-left align-middle shadow-xl transition-all">
+                                <Dialog.Panel className="w-full md:ml-60 md:mb-20 max-w-3xl transform overflow-hidden rounded-xl bg-bgColor  text-left align-middle shadow-xl transition-all">
                                     <Dialog.Title
                                         as="h3"
                                         className="text-lg font-medium leading-6 text-gray-900"
                                     ></Dialog.Title>
 
-                                     <Profile isOpen={isOpen} closeProfileModal={closeProfileModal} closeModal={closeModal} />
+                                    <Welcome closeModal={closeModal} />
 
                                 </Dialog.Panel>
                             </Transition.Child>
@@ -56,4 +54,4 @@ console.log(isOpen)
     )
 }
 
-export default ProfileModal
+export default WelcomeModal

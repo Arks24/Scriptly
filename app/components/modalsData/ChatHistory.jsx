@@ -1,12 +1,12 @@
 import React from 'react'
 
-const ChatHistory = ({closeModal,handleMessageInformation }) => {
-
+const ChatHistory = ({closeModal,setisInformation,setmessageInformation,closeProfileModal }) => {
 
   const handleYes = () => {
+    closeProfileModal()
     closeModal()
-    handleMessageInformation(
-      {type:'chatdeleted',
+    setmessageInformation(
+      {type:'',
       text:'Your chat has been deleted'}
     )
     setisInformation(true)
@@ -14,6 +14,7 @@ const ChatHistory = ({closeModal,handleMessageInformation }) => {
   }
   const handleNo = () => {
     console.log('no')
+    closeProfileModal()
     closeModal()
   }
   return (

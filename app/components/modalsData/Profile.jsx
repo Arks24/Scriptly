@@ -1,23 +1,15 @@
 'use client'
-import React, { useState } from 'react'
-import MessageModalWrapper from '../MessageModalWrapper'
-import DeleteChatModal from '../DeleteChatModal'
+import React from 'react'
 
-const Profile = ({ isOpen, closeModal, closeProfileModal }) => {
-
-  const [isChatHistory, setisChatHistory] = useState(false)
-  const [isInformation, setisInformation] = useState(false)
-  const [messageInformation, setmessageInformation] = useState({ type: '', text: '' })
-
-  console.log(isOpen)
-
+const Profile = ({ closeModal, closeProfileModal, openChatHistory, setmessageInformation, setisInformation }) => {
+ 
   const handleChatHistory = () => {
     closeProfileModal()
-    setisChatHistory(true)
+    openChatHistory()
   }
 
   const handleCancleSubscription = () => {
-    // if(isOpen) closeProfileModal()
+    closeProfileModal()
     setmessageInformation(
       {
         type: 'subscription',
@@ -27,7 +19,7 @@ const Profile = ({ isOpen, closeModal, closeProfileModal }) => {
     setisInformation(true)
   }
   const handleDeleteAccount = () => {
-    // if(isOpen) closeProfileModal()
+    closeProfileModal()
     setmessageInformation(
       {
         type: 'account',
@@ -37,22 +29,19 @@ const Profile = ({ isOpen, closeModal, closeProfileModal }) => {
     setisInformation(true)
   }
 
-  // const handleCloseButton = () => {
-  //   closeModal()
-  // }
+  const handleCloseButton = () => {
+    closeModal()
+  }
 
   const handleLogout = () => console.log('logout')
 
   return (
     <>
-
-      <MessageModalWrapper isOpen={isInformation} messageInformation={messageInformation} setisOpen={setisInformation} />
-
-      <div className={`${(isChatHistory || isInformation) && 'blur-xs'} py-1`}>
+      <div className={`py-1`}>
         <div className='flex justify-between border-white border-b'>
 
           <h1 className='text-white  font-normal text-2xl text-left mx-4 p-6 my-2'>Settings </h1>
-          <button >
+          <button onClick={() => handleCloseButton()}>
             <p className='text-3xl p-4 px-6 text-white'>X</p>
           </button>
         </div>
@@ -96,7 +85,7 @@ const Profile = ({ isOpen, closeModal, closeProfileModal }) => {
         </div>
       </div>
 
-      {isChatHistory && <DeleteChatModal isOpen={isChatHistory} setisOpen={setisChatHistory} closeProfileModal={closeProfileModal} />}
+
     </>
   )
 }

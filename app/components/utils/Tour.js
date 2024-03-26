@@ -1,5 +1,5 @@
 import introJs from "intro.js";
-import ModelWrapper from "../ProfileModal";
+import ModelWrapper from "../modals/ProfileModal";
 import 'intro.js/introjs.css';
 import { Steps } from 'intro.js-react';
 import { useState } from "react";

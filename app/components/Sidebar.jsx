@@ -5,26 +5,39 @@ import Youtubelogo from '/image/scripty-youtube-logo.png'
 import Image from 'next/image'
 import Profilelogo from '/image/scripty-preview-logo.png'
 import Logoutlogo from '/image/logouts.png'
-import ProfileModal from './ProfileModal'
-import YoutubeModal from './YoutubeModal'
+import ProfileModal from './modals/ProfileModal'
+import YoutubeModal from './modals/YoutubeModal'
+import DeleteChatModal from './modals/DeleteChatModal'
+import MessageModelWrapper from './modals/MessageModalWrapper'
+import { SignOutButton } from '@clerk/nextjs'
 
 
 const SideBar = () => {
 
   const [isYoutubeOpen, setisYoutubeOpen] = useState(false)
   const [isProfileOpen, setisProfileOpen] = useState(false)
+  const [isChatHistory, setisChatHistory] = useState(false)
+  const [isInformation, setisInformation] = useState(false)
+  const [messageInformation, setmessageInformation] = useState({ type: '', text: '' })
 
   const handleYoutubeClick = () => setisYoutubeOpen(true)
   const handleProfileClick = () => setisProfileOpen(true)
 
   const closeProfileModal = () => setisProfileOpen(false)
+  const openChatHistory = () => setisChatHistory(true)
+  const closeChatHistory = () => setisChatHistory(false)
   //  const closeYoutubeModal=()=> setisYoutubeOpen(false)
+
+  const handleLogout = () => {
+
+    console.log('logout')
+  }
 
 
   return (
     <>
       <YoutubeModal isOpen={isYoutubeOpen} setisOpen={setisYoutubeOpen} />
-      <ProfileModal isOpen={isProfileOpen} setisOpen={setisProfileOpen} closeProfileModal={closeProfileModal} />
+      <ProfileModal isOpen={isProfileOpen} setisOpen={setisProfileOpen} closeProfileModal={closeProfileModal} openChatHistory={openChatHistory} setmessageInformation={setmessageInformation} setisInformation={setisInformation} />
 
       <div className={`${(isYoutubeOpen || isProfileOpen) && 'blur-xs'} m-2 bg-bgColor  h-full  rounded-xl shadow-lg shadow-black`}>
 
@@ -47,22 +60,31 @@ const SideBar = () => {
             <button className='text-start bg-white text-textColor text-sm font-normal  pl-4 m-1 rounded-lg p-2 font-base'>🗨️ Current Chat</button>
           </div>
           <div className=' flex px-3 h-36 justify-between flex-col'>
-            <button className='youtube-btn text-center text-base bg-white  text-textColor pl-4 mx-1 rounded-2xl p-2 font-semibold' onClick={() => handleYoutubeClick()}>Add Youtube Channel <Image src={Youtubelogo} width={40} height={40} alt='youtube-logo' className='inline p-1 mx-2 align-middle' /></button>
+            <button className='youtube-btn text-center text-base bg-white  text-textColor pl-4 mx-1 rounded-xl p-2 font-semibold' onClick={() => handleYoutubeClick()}>Add Youtube Channel <Image src={Youtubelogo} width={40} height={40} alt='youtube-logo' className='inline p-1 mx-2 align-middle' /></button>
             <div className='flex  justify-between profile-part' >
 
               <button onClick={() => handleProfileClick()} className=' w-3/4 flex items-center   '>
                 <Image src={Profilelogo} width={100} height={10} alt='preview-logo' className='h-10 w-10 rounded-full' />
                 <p className='text-base font-semibold px-2 mx-1 text-white'>John Smith</p>
               </button>
-              <button onClick={() => handleLogoutClick()} className='px-2'>
-                <Image src={Logoutlogo} width={100} height={10} alt='logout-logo' className='h-10 w-10 rounded-full' />
-              </button>
+              <Link href='/sign-up'>
+                <SignOutButton>
+                  
+                  <button onClick={() => handleLogout()} className=' p-2 border-2 border-white rounded-full'>
+                    <Image src={Logoutlogo} width={100} height={10} alt='logout-logo' className='h-5 w-5' />
+                  </button>
+                </SignOutButton>
+              </Link>
             </div>
 
           </div>
 
         </div>
       </div>
+
+      {isChatHistory && <DeleteChatModal isOpen={isChatHistory} setisOpen={closeChatHistory} closeProfileModal={closeProfileModal} setisInformation={setisInformation} messageInformation={messageInformation} setmessageInformation={setmessageInformation} />}
+      {isInformation && <MessageModelWrapper isOpen={isInformation} setisOpen={setisInformation} messageInformation={messageInformation} setmessageInformation={setmessageInformation} closeProfileModal={closeProfileModal} />}
+
     </>
   )
 }

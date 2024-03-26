@@ -18,6 +18,11 @@ const Youtube = ({closeModal}) => {
     setnewChannel('')
   }
   const handleCloseButton = () => closeModal()
+  const handleDeleteChannel=(item)=>{
+    const newList = totalYoutubeChannel.filter((each)=>item !== each)
+    settotalYoutubeChannel([...newList])
+    console.log('delete channel')
+  }
 
   return (
     <>
@@ -41,7 +46,7 @@ const Youtube = ({closeModal}) => {
           {totalYoutubeChannel.length > 0 && totalYoutubeChannel.map((item, index) => (
             <div className='flex justify-between my-1 w-3/5' key={index}>
               <p className='text-lg font-normal my-1 text-white'>{item}</p>
-              <button>
+              <button onClick={()=>handleDeleteChannel(item)}>
                 <Image src={DeleteLogo} width={100} height={10} alt='delete-logo' className='w-6 h-6 text-white' />
               </button>
             </div>
