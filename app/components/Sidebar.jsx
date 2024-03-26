@@ -26,7 +26,7 @@ const SideBar = () => {
   const closeProfileModal = () => setisProfileOpen(false)
   const openChatHistory = () => setisChatHistory(true)
   const closeChatHistory = () => setisChatHistory(false)
-  //  const closeYoutubeModal=()=> setisYoutubeOpen(false)
+ 
 
   const handleLogout = () => {
 
@@ -39,7 +39,7 @@ const SideBar = () => {
       <YoutubeModal isOpen={isYoutubeOpen} setisOpen={setisYoutubeOpen} />
       <ProfileModal isOpen={isProfileOpen} setisOpen={setisProfileOpen} closeProfileModal={closeProfileModal} openChatHistory={openChatHistory} setmessageInformation={setmessageInformation} setisInformation={setisInformation} />
 
-      <div className={`${(isYoutubeOpen || isProfileOpen) && 'blur-xs'} m-2 bg-bgColor  h-full  rounded-xl shadow-lg shadow-black`}>
+      <div className={`${(isYoutubeOpen || isProfileOpen ||isChatHistory || isInformation) && 'blur-xs'} m-2 bg-bgColor  h-full  rounded-xl shadow-lg shadow-black`}>
 
         <div className='p-3 h-[15%] flex flex-col m-1'>
           <Link href='/' className='font-semibold text-white text-3xl tracking-wide my-2'>

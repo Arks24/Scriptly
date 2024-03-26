@@ -29,7 +29,7 @@ const Youtube = ({closeModal}) => {
       <div className='py-1'>
         <div className='flex justify-between border-white border-b'>
 
-        <h1 className='text-white  font-normal text-2xl text-left p-6 my-2'>Youtube Channel <Image src={YoutubeImage} width={100} height={10} className='w-10 h-10 inline align-middle' /> </h1>
+        <h1 className='text-white  font-normal text-2xl text-left p-6 my-2'>Youtube Channel <Image src={YoutubeImage} width={100} height={10} className='w-10 h-10 inline align-middle' alt='youtube' /> </h1>
         <button onClick={()=>handleCloseButton()}>
          <p className='text-3xl p-4 px-6 text-white'>X</p>
           </button> 
