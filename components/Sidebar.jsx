@@ -10,7 +10,7 @@ import YoutubeModal from './modals/YoutubeModal'
 import DeleteChatModal from './modals/DeleteChatModal'
 import MessageModelWrapper from './modals/MessageModalWrapper'
 import { SignOutButton } from '@clerk/nextjs'
-import { nextButton } from './utils/Tour'
+// import { nextButton } from '../app/components/utils/Tour'
 
 
 const SideBar = () => {
@@ -27,7 +27,7 @@ const SideBar = () => {
   const closeProfileModal = () => setisProfileOpen(false)
   const openChatHistory = () => setisChatHistory(true)
   const closeChatHistory = () => setisChatHistory(false)
- 
+
 
   const handleLogout = () => {
 
@@ -40,7 +40,7 @@ const SideBar = () => {
       <YoutubeModal isOpen={isYoutubeOpen} setisOpen={setisYoutubeOpen} />
       <ProfileModal isOpen={isProfileOpen} setisOpen={setisProfileOpen} closeProfileModal={closeProfileModal} openChatHistory={openChatHistory} setmessageInformation={setmessageInformation} setisInformation={setisInformation} />
 
-      <div className={`${(isYoutubeOpen || isProfileOpen ||isChatHistory || isInformation) && 'blur-xs'} m-2 bg-bgColor  h-full  rounded-xl shadow-lg shadow-black`}>
+      <div className={`${(isYoutubeOpen || isProfileOpen || isChatHistory || isInformation) && 'blur-xs'} m-2 bg-bgColor  h-full  rounded-xl shadow-lg shadow-black`}>
 
         <div className='p-3 h-[15%] flex flex-col m-1'>
           <Link href='/' className='font-semibold text-white text-3xl tracking-wide my-2'>
@@ -70,7 +70,7 @@ const SideBar = () => {
               </button>
               <Link href='/sign-up'>
                 <SignOutButton>
-                  
+
                   <button onClick={() => handleLogout()} className=' p-2 border-2 border-white rounded-full'>
                     <Image src={Logoutlogo} width={100} height={10} alt='logout-logo' className='h-5 w-5' />
                   </button>

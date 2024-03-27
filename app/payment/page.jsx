@@ -3,13 +3,34 @@ import Image from 'next/image'
 import React from 'react'
 import Tick from '../../image/tick.png'
 import { useRouter } from 'next/navigation'
+import { loadStripe } from "@stripe/stripe-js";
+
+const asyncStripe = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
 
 const Chooseplan = () => {
-const route=useRouter()
-    const handlePayment=()=>{
-        console.log('payment')
-        route.push("/home")
-    }
+
+    const router = useRouter();
+
+    const handlePayment = async (amount) => {
+        try {
+            const stripe = await asyncStripe;
+            const res = await fetch("http://localhost:3000/api/stripe", {
+                method: "POST",
+                body: JSON.stringify({
+                    amount,
+                }),
+                headers: { "Content-Type": "application/json" },
+            });
+            const { sessionId } = await res.json();
+            const { error } = await stripe.redirectToCheckout({ sessionId });
+            console.log(error)
+            if(error) router.push('/')
+            console.log('payment succesful');
+        } catch (err) {
+            console.log(err);
+        }
+    };
+
     return (
         <>
             <div className='w-3/5 my-5 py-5 mx-auto'>
@@ -36,7 +57,7 @@ const route=useRouter()
                             </div>
                         </div>
                         <div className='mt-16 flex justify-center '>
-                            <button onClick={()=>handlePayment()} className='bg-logoColor mt-7 text-white p-3 px-20 text-lg font-semibold rounded-xl'> Get started</button>
+                            <button onClick={() => handlePayment(14)} className='bg-logoColor mt-7 text-white p-3 px-20 text-lg font-semibold rounded-xl'> Get started</button>
                         </div>
                     </div>
                     <div className=' w-3/5 shadow-xl rounded-large  p-5 px-7'>
@@ -61,7 +82,7 @@ const route=useRouter()
                             </div>
                         </div>
                         <div className='my-10 flex justify-center'>
-                            <button onClick={()=>handlePayment()} className='bg-logoColor text-white p-3 px-20 text-lg font-semibold rounded-xl'> Get started</button>
+                            <button onClick={() => handlePayment(126)} className='bg-logoColor text-white p-3 px-20 text-lg font-semibold rounded-xl'> Get started</button>
                         </div>
                     </div>
                 </div>

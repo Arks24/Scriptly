@@ -1,14 +1,14 @@
 'use client'
 import Image from "next/image";
-import Answer from "../components/Answer";
-import InputElement from "../components/InputElement";
-import Question from "../components/Question";
-import SideBar from "../components/Sidebar";
+import Answer from "../../components/Answer";
+import InputElement from "../../components/InputElement";
+import Question from "../../components/Question";
+import SideBar from "../../components/Sidebar";
 import { useEffect, useState } from "react";
 import LogoImage from '/image/scripty-logo.png'
-import WelcomeModal from "../components/modals/WelcomeModal";
+import WelcomeModal from "../../components/modals/WelcomeModal";
 import { useUser } from "@clerk/nextjs";
-import Generating from "../components/Generating";
+import Generating from "../../components/Generating";
 
 
 export default function Home() {
@@ -63,7 +63,6 @@ export default function Home() {
   useEffect(() => {
     setisWelcomeOpen(true)
   }, [])
-  console.log(isAnsGenerated, isStopLoading)
   return (
     <>
       {

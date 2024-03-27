@@ -2,6 +2,7 @@ import React from 'react'
 import { handleTourPart } from '../utils/Tour'
 
 
+
 const Welcome = ({closeModal}) => {
   const handleCloseButton = () => closeModal()
   const handleTour = () => {
