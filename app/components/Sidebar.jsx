@@ -21,10 +21,7 @@ const SideBar = () => {
   const [isInformation, setisInformation] = useState(false)
   const [messageInformation, setmessageInformation] = useState({ type: '', text: '' })
 
-  const handleYoutubeClick = () => {
-    console.log('121')
-    nextButton()
-  }
+  const handleYoutubeClick = () => setisYoutubeOpen(true)
   const handleProfileClick = () => setisProfileOpen(true)
 
   const closeProfileModal = () => setisProfileOpen(false)

@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import LogoImage from '/image/scripty-logo.png'
 import WelcomeModal from "../components/modals/WelcomeModal";
 import { useUser } from "@clerk/nextjs";
+import Generating from "../components/Generating";
 
 
 export default function Home() {
@@ -50,6 +51,9 @@ export default function Home() {
   const [questions, setquestions] = useState([])
   const [isWelcomeOpen, setisWelcomeOpen] = useState(false)
   const [isTourOpen, setisTourOpen] = useState(false)
+  const [isAnsGenerated, setisAnsGenerated] = useState(false)
+  const [isStopLoading, setisStopLoading] = useState(true)
+
 
   const handleQuery = (querr, type) => {
     setquestions(querr)
@@ -59,13 +63,13 @@ export default function Home() {
   useEffect(() => {
     setisWelcomeOpen(true)
   }, [])
-console.log(isTourOpen)
+  console.log(isAnsGenerated, isStopLoading)
   return (
     <>
       {
         <>
           <WelcomeModal isOpen={isWelcomeOpen} setisOpen={setisWelcomeOpen} setisTourOpen={setisTourOpen} />
-          <div className={` ${(isWelcomeOpen ||isTourOpen) && 'blur-xs'} ${'grid grid-cols-9 h-[700px]'}`}>
+          <div className={` ${(isWelcomeOpen || isTourOpen) && 'blur-xs'} ${'grid grid-cols-9 h-[700px]'}`}>
             <div className="col-span-2 px-2 ">
 
               <SideBar />
@@ -80,13 +84,17 @@ console.log(isTourOpen)
                           <div className="my-4" key={index}>
 
                             {
-                              item.type === 'question' ? <Question question={item} /> : <Answer answer={item} />
+                              item.type === 'question' ? <Question setisStopLoading={setisStopLoading} question={item} /> : <Answer answer={item} />
                             }
+
                           </div>
                         )
                       })
 
                     }
+                    <div className="my-4">
+                      {(isAnsGenerated && isStopLoading) && <Generating isStopLoading={isStopLoading} setisStopLoading={setisStopLoading} />}
+                    </div>
                   </>
                   :
                   <div className="flex flex-col h-full align-middle justify-center items-center">
@@ -105,7 +113,7 @@ console.log(isTourOpen)
 
 
               <div className="h-[15%]">
-                <InputElement handleQuery={handleQuery} />
+                <InputElement setisAnsGenerated={setisAnsGenerated} handleQuery={handleQuery} setisStopLoading={setisStopLoading} />
               </div>
 
 

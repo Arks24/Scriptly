@@ -4,9 +4,7 @@ import PreviewLogo from '/image/scripty-preview-logo.png'
 import Editlogo from '/image/edit-icon.png'
 
 const Question = ({ question }) => {
-
-    
-
+   
     return (
         <div className='w-full flex items-center bg-white rounded-xl shadow-md shadow-black/30 m-2 my-3 p-3'>
             <div className='border rounded-full w-10 h-10'>
