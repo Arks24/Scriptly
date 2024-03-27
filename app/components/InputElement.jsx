@@ -9,7 +9,7 @@ const InputElement = ({ handleQuery }) => {
         setquery(e.target.value)
         if (e.keys === "Enter") handleQuery(e.target.value)
     }
-    const type = 'answer'
+    const type = 'question'
     const handleSubmit = (e) => {
         e.preventDefault()
         handleQuery(query, type)

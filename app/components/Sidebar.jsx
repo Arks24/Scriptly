@@ -10,6 +10,7 @@ import YoutubeModal from './modals/YoutubeModal'
 import DeleteChatModal from './modals/DeleteChatModal'
 import MessageModelWrapper from './modals/MessageModalWrapper'
 import { SignOutButton } from '@clerk/nextjs'
+import { nextButton } from './utils/Tour'
 
 
 const SideBar = () => {
@@ -20,7 +21,10 @@ const SideBar = () => {
   const [isInformation, setisInformation] = useState(false)
   const [messageInformation, setmessageInformation] = useState({ type: '', text: '' })
 
-  const handleYoutubeClick = () => setisYoutubeOpen(true)
+  const handleYoutubeClick = () => {
+    console.log('121')
+    nextButton()
+  }
   const handleProfileClick = () => setisProfileOpen(true)
 
   const closeProfileModal = () => setisProfileOpen(false)
@@ -60,7 +64,7 @@ const SideBar = () => {
             <button className='text-start bg-white text-textColor text-sm font-normal  pl-4 m-1 rounded-lg p-2 font-base'>🗨️ Current Chat</button>
           </div>
           <div className=' flex px-3 h-36 justify-between flex-col'>
-            <button className='youtube-btn text-center text-base bg-white  text-textColor pl-4 mx-1 rounded-xl p-2 font-semibold' onClick={() => handleYoutubeClick()}>Add Youtube Channel <Image src={Youtubelogo} width={40} height={40} alt='youtube-logo' className='inline p-1 mx-2 align-middle' /></button>
+            <button className='youtube-btn text-center nextTour text-base bg-white  text-textColor pl-4 mx-1 rounded-xl p-2 font-semibold' onClick={() => handleYoutubeClick()}>Add Youtube Channel <Image src={Youtubelogo} width={40} height={40} alt='youtube-logo' className='inline p-1 mx-2 align-middle' /></button>
             <div className='flex  justify-between profile-part' >
 
               <button onClick={() => handleProfileClick()} className=' w-3/4 flex items-center   '>

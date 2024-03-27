@@ -31,7 +31,9 @@
     border-radius: 20px !important;
     padding: 8px;
 }
-
+.searchSection >.introjs-tooltiptext{
+    padding: 10px !important;
+}
 .searchSection>div>div>p {
     color: black !important;
     font-size: 20px !important;
@@ -81,10 +83,12 @@
 
 .customModalStyle {
     min-width: 48rem !important;
-    background-color: transparent !important;
+    background-color:#131A21 !important;
     margin-left: -250.794px !important;
     margin-top: -350.794px !important;
     box-shadow: none !important;
+    border-radius: 20px !important;
+
 }
 
 
@@ -93,7 +97,7 @@
 }
 
 .customModalStyle>.introjs-tooltipbuttons {
-    display: none;
+    margin: 5px 0px !important;
 }
 
 .arrow {
