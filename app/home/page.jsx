@@ -49,7 +49,8 @@ export default function Home() {
   const [allChats, setallChats] = useState([])
   const [questions, setquestions] = useState([])
   const [isWelcomeOpen, setisWelcomeOpen] = useState(false)
- 
+  const [isTourOpen, setisTourOpen] = useState(false)
+
   const handleQuery = (querr, type) => {
     setquestions(querr)
     setallChats([...allChats, { type: type, text: querr }])
@@ -58,13 +59,13 @@ export default function Home() {
   useEffect(() => {
     setisWelcomeOpen(true)
   }, [])
-
+console.log(isTourOpen)
   return (
     <>
       {
         <>
-          <WelcomeModal isOpen={isWelcomeOpen} setisOpen={setisWelcomeOpen} />
-          <div className={` ${isWelcomeOpen && 'blur-xs'} ${'grid grid-cols-9 h-[700px]'}`}>
+          <WelcomeModal isOpen={isWelcomeOpen} setisOpen={setisWelcomeOpen} setisTourOpen={setisTourOpen} />
+          <div className={` ${(isWelcomeOpen ||isTourOpen) && 'blur-xs'} ${'grid grid-cols-9 h-[700px]'}`}>
             <div className="col-span-2 px-2 ">
 
               <SideBar />

@@ -29,16 +29,17 @@ const Youtube = ({closeModal}) => {
       <div className='py-1'>
         <div className='flex justify-between border-white border-b'>
 
-        <h1 className='text-white  font-normal text-2xl text-left p-6 my-2'>Youtube Channel <Image src={YoutubeImage} width={100} height={10} className='w-10 h-10 inline align-middle' alt='youtube' /> </h1>
+        <h1 className='text-white  font-normal text-2xl text-left p-6 my-2'>Youtube Channels <Image src={YoutubeImage} width={100} height={10} className='w-10 h-10 inline align-middle' alt='youtube' /> </h1>
         <button onClick={()=>handleCloseButton()}>
          <p className='text-3xl p-4 px-6 text-white'>X</p>
           </button> 
         </div>
         <div className='p-4 px-8 my-2 border-b border-white'>
           <p className='text-[20px] my-4 font-normal text-white '>Enter the URL of the Youtube Channel you want to add below:</p>
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit} className='flex items-center justify-between'>
 
-            <input type='text' onChange={(e) => handleChange(e)} value={newChannel} className='p-2 px-4 mt-2 mb-4 text-lg w-[70%] rounded-full' placeholder='www.youtube.com/@Wendoverproductions' />
+            <input type='text' onChange={(e) => handleChange(e)} value={newChannel} className='py-3 px-4 mt-2 mb-4 text-lg w-[70%] rounded-full' placeholder='www.youtube.com/@Wendoverproductions' />
+          <button type='submit' className='bg-logoColor w-[25%] text-white p-3 px-4 text-base font-semibold rounded-lg'>Add Channel</button>
           </form>
         </div>
         <div className='p-4 px-8 my-2'>
@@ -47,7 +48,7 @@ const Youtube = ({closeModal}) => {
             <div className='flex justify-between my-1 w-3/5' key={index}>
               <p className='text-lg font-normal my-1 text-white'>{item}</p>
               <button onClick={()=>handleDeleteChannel(item)}>
-                <Image src={DeleteLogo} width={100} height={10} alt='delete-logo' className='w-6 h-6 text-white' />
+                <Image src={DeleteLogo} width={100} height={10} alt='delete-logo' className='w-6 h-6 text-white hover:text-white' />
               </button>
             </div>
           )

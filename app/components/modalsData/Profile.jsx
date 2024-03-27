@@ -57,7 +57,7 @@ const Profile = ({ closeModal, closeProfileModal, openChatHistory, setmessageInf
             <p className='text-lg mt-2 pl-4 font-normal text-white '>Subscription</p>
             <div className='mt-2  flex justify-between items-center'>
               <p className='text-white text-sm font-normal mx-4'>Your monthly subscription renews on date </p>
-              <button onClick={() => handleCancleSubscription()} className='text-center bg-logoColor text-white px-8  mx-1 rounded-lg p-2 text-sm font-base'>Cancle</button>
+              <button onClick={() => handleCancleSubscription()} className='text-center bg-logoColor text-white px-8  mx-1 rounded-lg p-2 text-sm font-base'>Cancel</button>
             </div>
           </div>
 
