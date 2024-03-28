@@ -14,7 +14,7 @@ const Welcome = ({closeModal}) => {
   return (
     <>
       <div className='w-[87%] mx-auto'>
-        <h2 className='p-3 text-white text-center leading-3 font-semibold text-3xl my-6'>Welcome To Scriptly<span className='text-logoColor'>!</span></h2>
+        <h2 className='p-3 text-white text-center leading-3 font-semibold text-3xl my-6'>Welcome To Skryptly<span className='text-logoColor'>!</span></h2>
         <p className='font-semibold text-base text-white'>
           Skryptly is an AI companion that helps you write video scripts, faster.
         </p>
