@@ -14,7 +14,7 @@ const Chooseplan = () => {
     const handlePayment = async (amount) => {
         try {
             const stripe = await asyncStripe;
-            const res = await fetch("/api/stripe", {
+            const res = await fetch("https://scriptly-drab.vercel.app/api/stripe", {
                 method: "POST",
                 body: JSON.stringify({
                     amount,
