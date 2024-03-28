@@ -23,8 +23,8 @@ export async function POST(req,res) {
           },
         ],
         mode: "payment",
-        cancel_url: `${host}`,
-        success_url: `${host}/home`,
+        cancel_url: `${window.location.origin}`,
+        success_url: `${window.location.origin}/home`,
       });
     return  NextResponse.json({ sessionId: session.id },{status:200})
     } catch (err) {
