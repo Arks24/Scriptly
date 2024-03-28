@@ -23,8 +23,8 @@ export async function POST(req,res) {
           },
         ],
         mode: "payment",
-        cancel_url: `${host}`,
-        success_url: `${host}/home`,
+        cancel_url: `https://scriptly-ten.vercel.app/`,
+        success_url: `https://scriptly-ten.vercel.app/home`,
       });
     return  NextResponse.json({ sessionId: session.id },{status:200})
     } catch (err) {
