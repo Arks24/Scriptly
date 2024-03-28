@@ -14,7 +14,7 @@ const Chooseplan = () => {
     const handlePayment = async (amount) => {
         try {
             const stripe = await asyncStripe;
-            const res = await fetch("http://localhost:3000/api/stripe", {
+            const res = await fetch("/api/stripe", {
                 method: "POST",
                 body: JSON.stringify({
                     amount,
