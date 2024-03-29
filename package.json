@@ -20,7 +20,8 @@
     "react-dom": "^18",
     "react-joyride": "^2.8.0",
     "spinners-react": "^1.0.7",
-    "stripe": "^14.22.0"
+    "stripe": "^14.22.0",
+    "svix": "^1.21.0"
   },
   "devDependencies": {
     "autoprefixer": "^10.0.1",

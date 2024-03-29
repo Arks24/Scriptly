@@ -29,7 +29,7 @@ const Welcome = ({closeModal}) => {
           Would you like to see how to get started?
         </p>
         <div className='flex my-8 justify-around'>
-          <button onClick={()=>handleTour()} className='bg-logoColor text-white text-base font-semibold p-4 rounded-lg px-16'>Yes,show me</button>
+          <button onClick={()=>handleTour()} className='bg-logoColor text-white text-base font-semibold p-4 rounded-lg px-16'>Yes, show me</button>
           <button onClick={()=>handleCloseButton()} className='bg-white text-modalbtntext text-base font-semibold p-4 rounded-lg px-16'>Not right now</button>
         </div>
       </div>

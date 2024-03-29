@@ -68,12 +68,12 @@ export default function Home() {
       {
         <>
           <WelcomeModal isOpen={isWelcomeOpen} setisOpen={setisWelcomeOpen} setisTourOpen={setisTourOpen} />
-          <div className={` ${(isWelcomeOpen || isTourOpen) && 'blur-xs'} ${'grid grid-cols-9 h-[700px]'}`}>
-            <div className="col-span-2 px-2 ">
+          <div className={` ${(isWelcomeOpen || isTourOpen) && 'blur-xs'} ${'grid grid-cols-12 lg:grid-cols-9 h-[700px]'}`}>
+            <div className="lg:col-span-2 col-span-3 px-2 ">
 
               <SideBar />
             </div>
-            <main className="w-auto h-[700px] flex justify-between flex-col col-span-7">
+            <main className="w-auto h-[700px] flex justify-between flex-col col-span-9 lg:col-span-7">
               <div className=" h-4/5 scroll-auto snap-y overflow-auto touch-pan-y p-6 pt-10 w-full">
                 {allChats?.length > 0 ?
                   <>
