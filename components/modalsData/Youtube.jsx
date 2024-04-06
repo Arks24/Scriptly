@@ -1,10 +1,12 @@
 'use client'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
 import YoutubeImage from '/image/scripty-youtube-logo.png'
 import DeleteLogo from '/image/delete.png'
+import { addYoutubeChannel, deleteYoutubeChannel, getChannels } from '@/lib/fetch'
 
 const Youtube = ({closeModal}) => {
+  const clerkUserId = 'user_12345'
 
   const [totalYoutubeChannel, settotalYoutubeChannel] = useState([])
   const [newChannel, setnewChannel] = useState('')
@@ -14,15 +16,27 @@ const Youtube = ({closeModal}) => {
   }
   const handleSubmit = (e) => {
     e.preventDefault()
-    settotalYoutubeChannel([...totalYoutubeChannel, newChannel])
+    const newChannelId = addYoutubeChannel(newChannel, clerkUserId)
+    settotalYoutubeChannel([...totalYoutubeChannel, { channel_id: newChannelId, channel_url: newChannel, user_id: clerkUserId}])
     setnewChannel('')
   }
+
   const handleCloseButton = () => closeModal()
-  const handleDeleteChannel=(item)=>{
-    const newList = totalYoutubeChannel.filter((each)=>item !== each)
+
+  const handleDeleteChannel=(channelId)=>{
+    deleteYoutubeChannel(channelId)
+    const newList = totalYoutubeChannel.filter((each)=>channelId !== each._id)
     settotalYoutubeChannel([...newList])
     console.log('delete channel')
   }
+
+  useEffect(() => {
+    async function fetchChannels() {
+      const fetchChannels = await getChannels(clerkUserId)
+      settotalYoutubeChannel(fetchChannels)
+    }
+    fetchChannels()
+}, [setnewChannel])
 
   return (
     <>
@@ -44,10 +58,10 @@ const Youtube = ({closeModal}) => {
         </div>
         <div className='p-4 px-8 my-2'>
           <p className='text-[20px] text-white font-normal my-3 '>Added Channels:</p>
-          {totalYoutubeChannel.length > 0 && totalYoutubeChannel.map((item, index) => (
-            <div className='flex justify-between my-1 w-3/5' key={index}>
-              <p className='text-lg font-normal my-1 text-white'>{item}</p>
-              <button onClick={()=>handleDeleteChannel(item)}>
+          {totalYoutubeChannel.length > 0 && totalYoutubeChannel.map((item) => (
+            <div className='flex justify-between my-1 w-4/5' key={item._id}>
+              <p className='text-base font-normal my-1 text-white'>{item.channel_url}</p>
+              <button onClick={()=>handleDeleteChannel(item._id)}>
                 <Image src={DeleteLogo} width={100} height={10} alt='delete-logo' className='w-6 h-6 text-white hover:text-white' />
               </button>
             </div>

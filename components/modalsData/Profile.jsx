@@ -1,8 +1,10 @@
 'use client'
 import React from 'react'
-
+import { useClerk } from '@clerk/nextjs'
+import { useRouter } from 'next/router'
 const Profile = ({ closeModal, closeProfileModal, openChatHistory, setmessageInformation, setisInformation }) => {
- 
+ const {signOut} = useClerk()
+const router = useRouter()
   const handleChatHistory = () => {
     closeProfileModal()
     openChatHistory()
@@ -33,7 +35,10 @@ const Profile = ({ closeModal, closeProfileModal, openChatHistory, setmessageInf
     closeModal()
   }
 
-  const handleLogout = () => console.log('logout')
+  const handleLogout = () => {
+    signOut()
+    router.push("/")
+  }
 
   return (
     <>

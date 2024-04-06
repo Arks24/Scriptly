@@ -7,52 +7,20 @@ import SideBar from "../../components/Sidebar";
 import { useEffect, useState } from "react";
 import LogoImage from '/image/scripty-logo.png'
 import WelcomeModal from "../../components/modals/WelcomeModal";
-import { useUser } from "@clerk/nextjs";
 import Generating from "../../components/Generating";
 
 
 export default function Home() {
-  // const allChat = [
-  //   {
-  //     type: "question",
-  //     text: "This is the new Question regarding Nextjs",
-  //   },
-  //   {
-  //     type: "answer",
-  //     text: "This is the new Answer regarding Nextjs",
-  //   },
-  //   {
-  //     type: "question",
-  //     text: "This is the new Question regarding Nextjs",
-  //   },
-  //   {
-  //     type: "answer",
-  //     text: "This is the new Answer regarding Nextjs",
-  //   },
-  //   {
-  //     type: "question",
-  //     text: "This is the new Question regarding Nextjs",
-  //   },
-  //   {
-  //     type: "answer",
-  //     text: "This is the new Answer regarding Nextjs",
-  //   },
-  //   {
-  //     type: "question",
-  //     text: "This is the new Question regarding Nextjs",
-  //   },
-  //   {
-  //     type: "answer",
-  //     text: "This is the new Answer regarding Nextjs",
-  //   },
-
-  // ]
+ 
   const [allChats, setallChats] = useState([])
   const [questions, setquestions] = useState([])
+  
   const [isWelcomeOpen, setisWelcomeOpen] = useState(false)
   const [isTourOpen, setisTourOpen] = useState(false)
   const [isAnsGenerated, setisAnsGenerated] = useState(false)
   const [isStopLoading, setisStopLoading] = useState(true)
+
+
 
 
   const handleQuery = (querr, type) => {

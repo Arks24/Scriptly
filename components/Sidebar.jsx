@@ -35,7 +35,6 @@ const SideBar = () => {
   const handleLogout = () => {
     signOut()
     router.push("/")
-    console.log('logout')
   }
 
 
@@ -72,14 +71,9 @@ const SideBar = () => {
                 <Image src={Profilelogo} width={100} height={10} alt='preview-logo' className='h-10 w-10 rounded-full' />
                 <p className='text-base font-semibold px-2 mx-1 text-white'>John Smith</p>
               </button>
-              <Link href='/sign-up'>
-
-
                 <button onClick={() => handleLogout()} className=' p-2 border-2 border-white rounded-full'>
                   <Image src={Logoutlogo} width={100} height={10} alt='logout-logo' className='h-5 w-5' />
                 </button>
-
-              </Link>
             </div>
 
           </div>
