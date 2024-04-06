@@ -1,9 +1,10 @@
 import React from 'react'
-import { handleTourPart } from '../utils/Tour'
+import { handleTourPart } from '../utils/Tour.jsx'
 
 
 
 const Welcome = ({closeModal}) => {
+  
   const handleCloseButton = () => closeModal()
   const handleTour = () => {
     closeModal()

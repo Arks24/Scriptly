@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@clerk/clerk-js": "^4.71.2",
     "@clerk/nextjs": "^4.29.9",
     "@headlessui/react": "^1.7.18",
     "@stripe/react-stripe-js": "^2.6.2",

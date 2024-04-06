@@ -1,5 +1,5 @@
 import React from 'react'
-import { SignOutButton, SignedOut } from '@clerk/nextjs'
+import { SignOutButton } from '@clerk/nextjs'
 import Link from 'next/link'
 
 const page = () => {
@@ -12,7 +12,7 @@ const page = () => {
                 </div>
                 <div className='flex w-1/2   mx-auto justify-center items-center'>
                     <SignOutButton>
-
+                    
                         <Link href='/sign-up' >
 
                             <button className='text-4xl  bg-logoColor text-white p-4 rounded-large px-10'>Sign Up</button>

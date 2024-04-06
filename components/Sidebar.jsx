@@ -9,7 +9,8 @@ import ProfileModal from './modals/ProfileModal'
 import YoutubeModal from './modals/YoutubeModal'
 import DeleteChatModal from './modals/DeleteChatModal'
 import MessageModelWrapper from './modals/MessageModalWrapper'
-import { SignOutButton } from '@clerk/nextjs'
+import { useClerk } from '@clerk/nextjs'
+import { useRouter } from 'next/navigation'
 // import { nextButton } from '../app/components/utils/Tour'
 
 
@@ -28,9 +29,12 @@ const SideBar = () => {
   const openChatHistory = () => setisChatHistory(true)
   const closeChatHistory = () => setisChatHistory(false)
 
-
+  const { signOut } = useClerk()
+  const router = useRouter()
+  
   const handleLogout = () => {
-
+    signOut()
+    router.push("/")
     console.log('logout')
   }
 
@@ -69,12 +73,12 @@ const SideBar = () => {
                 <p className='text-base font-semibold px-2 mx-1 text-white'>John Smith</p>
               </button>
               <Link href='/sign-up'>
-                <SignOutButton>
 
-                  <button onClick={() => handleLogout()} className=' p-2 border-2 border-white rounded-full'>
-                    <Image src={Logoutlogo} width={100} height={10} alt='logout-logo' className='h-5 w-5' />
-                  </button>
-                </SignOutButton>
+
+                <button onClick={() => handleLogout()} className=' p-2 border-2 border-white rounded-full'>
+                  <Image src={Logoutlogo} width={100} height={10} alt='logout-logo' className='h-5 w-5' />
+                </button>
+
               </Link>
             </div>
 
