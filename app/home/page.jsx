@@ -67,7 +67,7 @@ export default function Home() {
     const path = '/home'
     console.log(currentChannelId, currentSessionId)
     async function fetchData() {
-      const result = await generateTranscript(query, userId, path, '66151712e886db7e08205a56', currentChannelId)
+      const result = await generateTranscript(query, userId, path, '66151712e886db7e08205a56', '6615702f1124a008bfc8d718')
       if (result) {
         const answer = { role: result.role, content: result.response }
         setallChats(prev => [...prev, answer])
