@@ -12,7 +12,7 @@ const Question = ({ question }) => {
             </div>
             <div className='w-full inline relative mx-2'>
 
-                <p className=' text-lg w-full font-normal inline p-2'>{question.text}</p>
+                <p className=' text-lg w-full font-normal inline p-2'>{question.content}</p>
                 <button className='absolute right-2'>
                     <Image src={Editlogo} width={4}height={4} className='w-5 h-5' alt='edit-logo' />
                 </button>

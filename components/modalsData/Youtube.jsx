@@ -1,33 +1,45 @@
 'use client'
-import React, { useEffect, useState } from 'react'
+import React, { use, useContext, useEffect, useState } from 'react'
 import Image from 'next/image'
 import YoutubeImage from '/image/scripty-youtube-logo.png'
 import DeleteLogo from '/image/delete.png'
 import { addYoutubeChannel, deleteYoutubeChannel, getChannels } from '@/lib/fetch'
+import { SkryptlyContext } from '@/context/ContextProvider'
 
 const Youtube = ({closeModal}) => {
   const clerkUserId = 'user_12345'
 
   const [totalYoutubeChannel, settotalYoutubeChannel] = useState([])
   const [newChannel, setnewChannel] = useState('')
+  const {setcurrentChannelId,setcurrentSessionId} = useContext(SkryptlyContext)
   
   const handleChange = (e) => {
     setnewChannel(e.target.value)
   }
   const handleSubmit = (e) => {
     e.preventDefault()
-    const newChannelId = addYoutubeChannel(newChannel, clerkUserId)
-    settotalYoutubeChannel([...totalYoutubeChannel, { channel_id: newChannelId, channel_url: newChannel, user_id: clerkUserId}])
-    setnewChannel('')
+    async function fetchChannels() {
+
+      const newChannelId =await addYoutubeChannel(newChannel, clerkUserId)
+      console.log(newChannelId)
+      settotalYoutubeChannel([...totalYoutubeChannel, { channel_id: newChannelId, channel_url: newChannel,user_id:clerkUserId }])
+      setcurrentChannelId(newChannelId)
+      setcurrentSessionId('')
+      setnewChannel('')
+    }
+    fetchChannels()
   }
 
   const handleCloseButton = () => closeModal()
 
   const handleDeleteChannel=(channelId)=>{
-    deleteYoutubeChannel(channelId)
     const newList = totalYoutubeChannel.filter((each)=>channelId !== each._id)
-    settotalYoutubeChannel([...newList])
-    console.log('delete channel')
+    async function deleteChannel(){
+       await deleteYoutubeChannel(channelId)
+       console.log('delete channel')
+      }
+      deleteChannel()
+      settotalYoutubeChannel([...newList])
   }
 
   useEffect(() => {

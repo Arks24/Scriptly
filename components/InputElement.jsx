@@ -1,18 +1,19 @@
 'use client'
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import Image from 'next/image'
 import SendMessageIcon from '/image/message-icon.png'
 
-const InputElement = ({ handleQuery, setisAnsGenerated, setisStopLoading }) => {
+const InputElement = ({handleQuery, setisAnsGenerated, setisStopLoading }) => {
+    // const { handleQuery } = useContext(SkryptlyContext)
     const [query, setquery] = useState('')
+    const role = 'user'
     const handleChange = (e) => {
         setquery(e.target.value)
-        if (e.keys === "Enter") handleQuery(e.target.value)
+        if (e.keys === "Enter") handleQuery(e.target.value,role)
     }
-    const type = 'question'
     const handleSubmit = (e) => {
         e.preventDefault()
-        handleQuery(query, type)
+        handleQuery(query, role)
         setisAnsGenerated(true)
         setquery('')
         setisStopLoading(true)

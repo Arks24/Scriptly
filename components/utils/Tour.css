@@ -26,10 +26,10 @@
 }
 
 .searchSection {
-    bottom: 150px !important;
+    bottom: 160px !important;
     left: 60px !important;
     border-radius: 20px !important;
-    padding: 8px;
+    padding: 8px !important;
 }
 .searchSection >.introjs-tooltiptext{
     padding: 10px !important;
