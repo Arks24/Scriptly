@@ -1,5 +1,5 @@
 'use client'
-import React, { use, useContext, useEffect, useState } from 'react'
+import React, {  useContext, useEffect, useState } from 'react'
 import Image from 'next/image'
 import YoutubeImage from '/image/scripty-youtube-logo.png'
 import DeleteLogo from '/image/delete.png'
@@ -7,11 +7,11 @@ import { addYoutubeChannel, deleteYoutubeChannel, getChannels } from '@/lib/fetc
 import { SkryptlyContext } from '@/context/ContextProvider'
 
 const Youtube = ({closeModal}) => {
-  const clerkUserId = 'user_12345'
+  
 
   const [totalYoutubeChannel, settotalYoutubeChannel] = useState([])
   const [newChannel, setnewChannel] = useState('')
-  const {setcurrentChannelId,setcurrentSessionId} = useContext(SkryptlyContext)
+  const {setcurrentChannelId,setcurrentSessionId,userId} = useContext(SkryptlyContext)
   
   const handleChange = (e) => {
     setnewChannel(e.target.value)
@@ -20,11 +20,11 @@ const Youtube = ({closeModal}) => {
     e.preventDefault()
     async function fetchChannels() {
 
-      const newChannelId =await addYoutubeChannel(newChannel, clerkUserId)
-      console.log(newChannelId)
-      settotalYoutubeChannel([...totalYoutubeChannel, { channel_id: newChannelId, channel_url: newChannel,user_id:clerkUserId }])
-      setcurrentChannelId(newChannelId)
-      setcurrentSessionId('')
+      const newChannelData =await addYoutubeChannel(newChannel, userId)
+      console.log(newChannelData)
+      settotalYoutubeChannel([...totalYoutubeChannel, { channel_id: newChannelData.channel_id, channel_url: newChannel,user_id:clerkUserId }])
+      setcurrentChannelId(newChannelData.channel_id)
+      setcurrentSessionId(newChannelData.session_id)
       setnewChannel('')
     }
     fetchChannels()
@@ -48,7 +48,7 @@ const Youtube = ({closeModal}) => {
       settotalYoutubeChannel(fetchChannels)
     }
     fetchChannels()
-}, [setnewChannel])
+}, [totalYoutubeChannel.length])
 
   return (
     <>

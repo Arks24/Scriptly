@@ -11,7 +11,6 @@ import DeleteChatModal from './modals/DeleteChatModal'
 import MessageModelWrapper from './modals/MessageModalWrapper'
 import { useClerk } from '@clerk/nextjs'
 import { useRouter } from 'next/navigation'
-import { getSessions } from '@/lib/fetch'
 // import { nextButton } from '../app/components/utils/Tour'
 
 
@@ -30,11 +29,9 @@ const SideBar = ({handleSessionClick,handleNewChat,allSessions}) => {
   const openChatHistory = () => setisChatHistory(true)
   const closeChatHistory = () => setisChatHistory(false)
 
-  // const [allSessions, setallSessions] = useState([])
-
   const { signOut } = useClerk()
   const router = useRouter()
-  const userId = 'user_12345'
+
 
   const handleLogout = () => {
     signOut()
@@ -42,15 +39,11 @@ const SideBar = ({handleSessionClick,handleNewChat,allSessions}) => {
   }
 
 
-  // useEffect(() => {
-  //   async function fetchSessions() {
-  //     const response = await getSessions(userId)
-  //     console.log(response)
-  //     setallSessions(response)
-  //   }
-  //   fetchSessions()
-
-  // }, [])
+  function getYouTubeChannelName(url) {
+    // Extract the channel name from the URL
+    const channelName = url.match(/@([a-zA-Z0-9_-]+)$/)[1];
+    return channelName;
+  }
 
   return (
     <>
@@ -63,7 +56,7 @@ const SideBar = ({handleSessionClick,handleNewChat,allSessions}) => {
           <Link href='/' className='font-semibold text-white text-3xl tracking-wide my-2'>
             Skryptly<span className='text-logoColor'>.</span>
           </Link>
-          <button onClick={()=>handleNewChat()} className='text-start leading-none bg-white text-textColor text-sm font-normal pl-3 mt-3 mx-1 rounded-lg p-2 font-base'>
+          <button onClick={handleNewChat} className='text-start leading-none bg-white text-textColor text-sm font-normal pl-3 mt-3 mx-1 rounded-lg p-2 font-base'>
             <span className='text-xl leading-none '>+</span>  New Chat
           </button>
         </div>
@@ -75,7 +68,7 @@ const SideBar = ({handleSessionClick,handleNewChat,allSessions}) => {
               (
                 allSessions.map((session) => (
 
-                  <button key={session._id} onClick={()=>handleSessionClick(session._id)} className='text-start bg-white text-textColor text-sm font-normal  pl-4 m-1 rounded-lg p-2 font-base'>🗨️ Current Chat</button>
+                  <button key={session._id} onClick={()=>handleSessionClick(session._id,session.channel_id)} className='text-start bg-white text-textColor text-sm font-normal  pl-4 m-1 rounded-lg p-2 font-base'>🗨️ {session.channel_url? getYouTubeChannelName(session.channel_url) : "Current Chat" }</button>
 
                 ))
               )

@@ -1,15 +1,24 @@
-import React from 'react'
+import { deleteAllChats } from '@/lib/fetch'
+import React, { useContext } from 'react'
+import {SkryptlyContext} from '@/context/ContextProvider'
 
 const ChatHistory = ({closeModal,setisInformation,setmessageInformation,closeProfileModal }) => {
-
+ 
+   const {setallChatHistory,userId} = useContext(SkryptlyContext)
   const handleYes = () => {
     closeProfileModal()
     closeModal()
-    setmessageInformation(
-      {type:'',
-      text:'Your chat has been deleted'}
-    )
-    setisInformation(true)
+    async function deleteChatHistory() {
+    const result =  await deleteAllChats(userId)
+    console.log(result)
+      setmessageInformation(
+        {type:'',
+        text:'Your chat has been deleted'}
+      )
+      setisInformation(true)
+    }
+    deleteChatHistory()
+    setallChatHistory(true)
     console.log('yes')
   }
   const handleNo = () => {

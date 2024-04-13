@@ -19,7 +19,7 @@ const Chooseplan = () => {
                 body: JSON.stringify({
                     amount,
                 }),
-                headers: { "Content-Type": "application/json" },
+                headers: { "Content-Type": "Authorization" },
             });
             const { sessionId } = await res.json();
             const { error } = await stripe.redirectToCheckout({ sessionId });

@@ -4,18 +4,18 @@ import Answer from "../../components/Answer";
 import InputElement from "../../components/InputElement";
 import Question from "../../components/Question";
 import SideBar from "../../components/Sidebar";
-import { useRef, useEffect, useState, useContext } from "react";
+import { useRef, useEffect, useState, useContext, use } from "react";
 import LogoImage from '/image/scripty-logo.png'
 import WelcomeModal from "../../components/modals/WelcomeModal";
 import Generating from "../../components/Generating";
-import startNewSession, { generateTranscript, getHistory, getSessions,getSession } from "@/lib/fetch";
+import startNewSession, { generateTranscript, getHistory, getSessions, getSession } from "@/lib/fetch";
 import { SkryptlyContext } from "@/context/ContextProvider";
 
 
 export default function Home() {
 
   const [allChats, setallChats] = useState([])
-  const { currentChannelId, currentSessionId, setcurrentChannelId, setcurrentSessionId } = useContext(SkryptlyContext)
+  const { currentChannelId, currentSessionId, setcurrentChannelId, setcurrentSessionId,allChatHistory,userId } = useContext(SkryptlyContext)
 
   //   const allChat = [
   //     {
@@ -60,14 +60,13 @@ export default function Home() {
   const [isStopLoading, setisStopLoading] = useState(true)
   const [allSessions, setallSessions] = useState([])
 
-  const userId = 'user_12345'
-  console.log("from home page", currentChannelId, currentSessionId)
+  
+  console.log("from home page", currentChannelId, currentSessionId,userId)
   const handleQuery = (query, role) => {
     setallChats([...allChats, { role: role, content: query }])
     const path = '/home'
-    console.log(currentChannelId, currentSessionId)
     async function fetchData() {
-      const result = await generateTranscript(query, userId, path, '66151712e886db7e08205a56', '6615702f1124a008bfc8d718')
+      const result = await generateTranscript(query, userId, path, currentSessionId, currentChannelId)
       if (result) {
         const answer = { role: result.role, content: result.response }
         setallChats(prev => [...prev, answer])
@@ -78,48 +77,40 @@ export default function Home() {
 
     fetchData()
   }
-  const handleSessionClick = (sessionId) => {
-
+  const handleSessionClick = (sessionId, channelId) => {
+    console.log("handle session click", sessionId, channelId)
     async function fetchHistory() {
       const response = await getHistory(userId, sessionId)
       if (response?.history?.messages.length > 0) setallChats(response?.history?.messages)
       else setallChats([])
     }
+    setcurrentSessionId(sessionId)
+    setcurrentChannelId(channelId)
     fetchHistory()
   }
   const handleNewChat = () => {
     async function fetchNewSession() {
-      const response = await startNewSession(userId)
-      console.log(response)
-      setallSessions([...allSessions, response])
-      setcurrentChannelId(response.channel_id)
-      setcurrentSessionId(response.session_id)
-      setallChats([])
+      const response = await startNewSession(userId);
+      setcurrentChannelId(response.channelId);
+      setcurrentSessionId(response.sessionId);
+      setallSessions(prev => [response, ...prev]);
+      setallChats([]);
     }
-    fetchNewSession()
-  }
-  useEffect(() => {
+    fetchNewSession();
+  };
+  console.log('allsession', allSessions)
 
+  useEffect(() => {
     async function fetchSessions() {
       const response = await getSessions(userId)
       setallSessions(response)
-    }
-    // if (allSessions.length === 0) {
+      if(response.length===0){
+        setallChats([])
+      }
+    } 
+   fetchSessions()
 
-    //   async function fetchNewSession() {
-    //     const response = await startNewSession(userId)
-    //     console.log(response)
-    //     setcurrentChannelId(response.channel_id)
-    //     setcurrentSessionId(response.session_id)
-    //     setallChats([])
-    //   }
-    //   fetchNewSession()
-    // }
-    
-    fetchSessions()
-
-
-  }, [currentChannelId, currentSessionId])
+  }, [currentChannelId, currentSessionId, allSessions.length,allChatHistory,userId])
 
   useEffect(() => {
     if (handleScroll.current) {
@@ -131,7 +122,9 @@ export default function Home() {
     setisWelcomeOpen(true)
     // handleNewChat()
   }, [])
+
   console.log("allChats", allChats)
+
   return (
     <>
       {
