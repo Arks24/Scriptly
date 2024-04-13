@@ -34,7 +34,7 @@ const Answer = ({ answer }) => {
                     </button>
                 }
             </div>
-            <p ref={ansData} className=' text-lg mx-2 w-full font-normal p-2 line-clamp-6 leading-8'>{answer.content}</p>
+            <p ref={ansData} className=' text-lg mx-2 w-full font-normal p-2 leading-8'>{answer.content}</p>
         </div>
     )
 }

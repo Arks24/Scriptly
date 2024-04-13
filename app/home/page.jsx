@@ -10,12 +10,16 @@ import WelcomeModal from "../../components/modals/WelcomeModal";
 import Generating from "../../components/Generating";
 import startNewSession, { generateTranscript, getHistory, getSessions, getSession } from "@/lib/fetch";
 import { SkryptlyContext } from "@/context/ContextProvider";
+import { useClerk } from "@clerk/nextjs";
 
 
 export default function Home() {
+  const { user } = useClerk()
+    const userData = { ...user }
+    const userId = userData.id
 
   const [allChats, setallChats] = useState([])
-  const { currentChannelId, currentSessionId, setcurrentChannelId, setcurrentSessionId,allChatHistory,userId } = useContext(SkryptlyContext)
+  const { currentChannelId, currentSessionId, setcurrentChannelId, setcurrentSessionId,allChatHistory } = useContext(SkryptlyContext)
 
   //   const allChat = [
   //     {
@@ -101,6 +105,7 @@ export default function Home() {
   console.log('allsession', allSessions)
 
   useEffect(() => {
+    if(userId){
     async function fetchSessions() {
       const response = await getSessions(userId)
       setallSessions(response)
@@ -109,7 +114,7 @@ export default function Home() {
       }
     } 
    fetchSessions()
-
+  }
   }, [currentChannelId, currentSessionId, allSessions.length,allChatHistory,userId])
 
   useEffect(() => {

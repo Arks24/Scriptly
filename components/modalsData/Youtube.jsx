@@ -5,24 +5,28 @@ import YoutubeImage from '/image/scripty-youtube-logo.png'
 import DeleteLogo from '/image/delete.png'
 import { addYoutubeChannel, deleteYoutubeChannel, getChannels } from '@/lib/fetch'
 import { SkryptlyContext } from '@/context/ContextProvider'
+import { SpinnerCircularFixed } from 'spinners-react'
 
 const Youtube = ({closeModal}) => {
   
 
   const [totalYoutubeChannel, settotalYoutubeChannel] = useState([])
   const [newChannel, setnewChannel] = useState('')
+  const [isSubmitting, setisSubmitting] = useState(false)
   const {setcurrentChannelId,setcurrentSessionId,userId} = useContext(SkryptlyContext)
   
   const handleChange = (e) => {
     setnewChannel(e.target.value)
   }
   const handleSubmit = (e) => {
+
     e.preventDefault()
     async function fetchChannels() {
-
+      setisSubmitting(true)
       const newChannelData =await addYoutubeChannel(newChannel, userId)
       console.log(newChannelData)
-      settotalYoutubeChannel([...totalYoutubeChannel, { channel_id: newChannelData.channel_id, channel_url: newChannel,user_id:clerkUserId }])
+      settotalYoutubeChannel(prevChannel => [{ channel_id: newChannelData.channel_id, channel_url: newChannel,user_id:userId },...prevChannel])
+      if(newChannelData) setisSubmitting(false)
       setcurrentChannelId(newChannelData.channel_id)
       setcurrentSessionId(newChannelData.session_id)
       setnewChannel('')
@@ -44,7 +48,7 @@ const Youtube = ({closeModal}) => {
 
   useEffect(() => {
     async function fetchChannels() {
-      const fetchChannels = await getChannels(clerkUserId)
+      const fetchChannels = await getChannels(userId)
       settotalYoutubeChannel(fetchChannels)
     }
     fetchChannels()
@@ -65,7 +69,11 @@ const Youtube = ({closeModal}) => {
           <form onSubmit={handleSubmit} className='flex items-center justify-between'>
 
             <input type='text' onChange={(e) => handleChange(e)} value={newChannel} className='py-3 px-4 mt-2 mb-4 text-lg w-[70%] rounded-full' placeholder='www.youtube.com/@Wendoverproductions' />
-          <button type='submit' className='bg-logoColor w-[25%] text-white p-3 px-4 text-base font-semibold rounded-lg'>Add Channel</button>
+          <button type='submit' disabled={isSubmitting} className={`bg-logoColor w-[25%] text-white p-3 px-4 text-base font-semibold rounded-lg ${isSubmitting && 'bg-logoColor/70 flex gap-1 items-center'}`}>
+            <span>
+              {isSubmitting && <SpinnerCircularFixed size={20} thickness={120} speed={100} color="#EE51B2" secondaryColor="#ffffff" />}
+              </span> 
+             <span>Add Channel</span> </button>
           </form>
         </div>
         <div className='p-4 px-8 my-2'>
