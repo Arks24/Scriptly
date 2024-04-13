@@ -7,6 +7,8 @@ export const SkryptlyContext = createContext({
     currentChannelId: '',
     currentSessionId: '',
     userId: '',
+    userEmail: '',
+    userName:'',
     allChatHistory: () => { },
     setcurrentChannelId: () => { },
     setcurrentSessionId: () => { }
@@ -22,10 +24,14 @@ const ContextProvider = ({ children }) => {
 
     const { user } = useClerk()
     const userData = { ...user }
+    console.log(userData)
     const userId = userData.id
+    const useremail = {...userData.primaryEmailAddress}
+     const userEmail =useremail.emailAddress
+     const userName = userData.fullName
 
     return (
-        <SkryptlyContext.Provider value={{ currentChannelId, currentSessionId, setcurrentChannelId, setcurrentSessionId, allChatHistory, setallChatHistory, userId }}>
+        <SkryptlyContext.Provider value={{ currentChannelId, currentSessionId, setcurrentChannelId, setcurrentSessionId, allChatHistory, setallChatHistory, userId,userEmail,userName }}>
             {children}
         </SkryptlyContext.Provider>
     )

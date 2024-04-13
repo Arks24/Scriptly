@@ -1,7 +1,8 @@
 'use client'
-import React from 'react'
+import React, { useContext } from 'react'
 import { useClerk } from '@clerk/nextjs'
 import { useRouter } from 'next/navigation'
+import { SkryptlyContext } from '@/context/ContextProvider'
 const Profile = ({ closeModal, closeProfileModal, openChatHistory, setmessageInformation, setisInformation }) => {
   const { signOut } = useClerk()
   const router = useRouter()
@@ -9,6 +10,7 @@ const Profile = ({ closeModal, closeProfileModal, openChatHistory, setmessageInf
     closeProfileModal()
     openChatHistory()
   }
+ const {userEmail} = useContext(SkryptlyContext)
 
   const handleCancleSubscription = () => {
     closeProfileModal()
@@ -53,7 +55,7 @@ const Profile = ({ closeModal, closeProfileModal, openChatHistory, setmessageInf
         <div className='py-4  mx-12 my-2 border-b border-white'>
           <div className='flex justify-between'>
             <p className='text-lg mt-2 pl-4 font-normal text-white '>Account</p>
-            <p className='text-sm mt-2 pl-4 font-normal text-white '>johnsmith@gmail.com</p>
+            <p className='text-sm mt-2 pl-4 font-normal text-white '>{userEmail}</p>
           </div>
 
         </div>
