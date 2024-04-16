@@ -9,10 +9,9 @@ const Profile = ({ closeModal, closeProfileModal, openChatHistory, setmessageInf
   const router = useRouter()
   const {user} = useUser()
   const subscriptionExpire = user.publicMetadata.stripeCurrentPeriodEnd
-  const timeLeft = (Date.now()- subscriptionExpire )
-  console.log("expire time",timeLeft,Date.now(),subscriptionExpire)
   function formatDate(milliseconds) {
-    let date = new Date(milliseconds);
+    let date = new Date(milliseconds*1000);
+    console.log("date",date)
     const day = date.getDate().toString().padStart(2, '0');
     const month = (date.getMonth() + 1).toString().padStart(2, '0');
     const year = date.getFullYear();
@@ -75,7 +74,7 @@ const Profile = ({ closeModal, closeProfileModal, openChatHistory, setmessageInf
           <div className='flex justify-between'>
             <p className='text-lg mt-2 pl-4 font-normal text-white '>Subscription</p>
             <div className='mt-2  flex justify-between items-center'>
-              <p className='text-white text-sm font-normal mx-4'>Your monthly subscription renews on {formatDate(timeLeft)} </p>
+              <p className='text-white text-sm font-normal mx-4'>Your monthly subscription renews on {formatDate(subscriptionExpire)} </p>
               <button onClick={() => handleCancleSubscription()} className='text-center bg-logoColor text-white px-8  mx-1 rounded-lg p-2 text-sm font-base'>Cancel</button>
             </div>
           </div>

@@ -10,7 +10,7 @@ import WelcomeModal from "../../components/modals/WelcomeModal";
 import Generating from "../../components/Generating";
 import startNewSession, { generateTranscript, getHistory, getSessions, getSession } from "@/lib/fetch";
 import { SkryptlyContext } from "@/context/ContextProvider";
-import { useClerk } from "@clerk/nextjs";
+import { useClerk, useUser } from "@clerk/nextjs";
 import Stripe from "stripe";
 
 
@@ -64,6 +64,8 @@ export default function Home() {
   const [isAnsGenerated, setisAnsGenerated] = useState(false)
   const [isStopLoading, setisStopLoading] = useState(true)
   const [allSessions, setallSessions] = useState([])
+
+  const {isSignedUp} = useUser()
 
   
   console.log("from home page", currentChannelId, currentSessionId,userId)
@@ -125,7 +127,7 @@ export default function Home() {
   }, [allChats])
 
   useEffect(() => {
-    setisWelcomeOpen(true)
+    if(isSignedUp) setisWelcomeOpen(true)
     
     // handleNewChat()
   }, [])
