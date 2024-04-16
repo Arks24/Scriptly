@@ -1,7 +1,7 @@
 import { Poppins } from "next/font/google";
 import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
-import ContextProvider, { SkryptlyContext } from "@/context/ContextProvider";
+import ContextProvider from "@/context/ContextProvider";
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -20,15 +20,16 @@ export const metadata = {
 export default function RootLayout({ children }) {
 
   return (
-    <ClerkProvider>
-      <html lang="en">
-        <body className={`${poppins.variable} font-sans`}>
-          <ContextProvider>
-            {children}
-          </ContextProvider>
-        </body>
 
-      </html>
+    <ClerkProvider>
+        <html lang="en">
+          <body className={`${poppins.variable} font-sans`}>
+            <ContextProvider>
+              {children}
+            </ContextProvider>
+          </body>
+
+        </html>
     </ClerkProvider>
 
   );

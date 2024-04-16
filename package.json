@@ -17,13 +17,15 @@
     "axios": "^1.6.8",
     "intro.js": "^7.2.0",
     "intro.js-react": "^1.0.0",
-    "next": "14.1.4",
-    "react": "^18",
-    "react-dom": "^18",
+    "next": "14.0.4",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
     "react-joyride": "^2.8.0",
     "spinners-react": "^1.0.7",
-    "stripe": "^14.22.0",
-    "svix": "^1.21.0"
+    "stripe": "^8.220.0",
+    "svix": "^1.21.0",
+    "swr": "^2.2.5",
+    "use-stripe-subscription": "^1.0.6"
   },
   "devDependencies": {
     "autoprefixer": "^10.0.1",

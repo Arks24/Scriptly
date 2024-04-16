@@ -1,33 +1,43 @@
 'use client'
 import Image from 'next/image'
-import React from 'react'
+import React, { useContext } from 'react'
 import Tick from '../../image/tick.png'
 import { useRouter } from 'next/navigation'
 import { loadStripe } from "@stripe/stripe-js";
+import { SkryptlyContext } from '@/context/ContextProvider'
+import { Stripe } from 'stripe';
+import { retrieveStripeCheckoutSession } from '@/lib/stripe'
 
 const asyncStripe = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
 
 const Chooseplan = () => {
-
-    const router = useRouter();
-
-    const handlePayment = async (amount) => {
+    const { userId } = useContext(SkryptlyContext)
+    const router = useRouter()
+    const handlePayment = async (amount, productId) => {
+        // redirectToCheckout({ price: amount })
         try {
             const stripe = await asyncStripe;
             const res = await fetch("/api/stripe", {
                 method: "POST",
                 body: JSON.stringify({
                     amount,
+                    productId
                 }),
                 headers: { "Content-Type": "Authorization" },
             });
             const { sessionId } = await res.json();
+            console.log(sessionId)
+
+
+            if (!userId) {
+                res.status(401).send("Not logged in");
+                return;
+            }
             const { error } = await stripe.redirectToCheckout({ sessionId });
-            console.log(error)
-            if(error) router.push('/')
+            if (error) router.push('/')
             console.log('payment succesful');
         } catch (err) {
-            console.log(err);
+            console.log('payment Error', err);
         }
     };
 
@@ -39,6 +49,9 @@ const Chooseplan = () => {
             </div>
             <div className='w-3/5 my-2 py-5 flex justify-center mx-auto'>
                 <div className='flex w-11/12 gap-10'>
+
+
+
                     <div className='shadow-xl w-3/5 rounded-large  p-5 px-7'>
                         <p className='text-start font-semibold text-lg text-paymenttext'>Monthly</p>
                         <h1 className='text-5xl text-start my-5 font-extrabold'>$14<span className='text-lg font-bold p-1'> /month</span> </h1>
@@ -57,9 +70,10 @@ const Chooseplan = () => {
                             </div>
                         </div>
                         <div className='mt-16 flex justify-center '>
-                            <button onClick={() => handlePayment(14)} className='bg-logoColor mt-7 text-white p-3 px-20 text-lg font-semibold rounded-xl'> Get started</button>
+                            <button onClick={() => handlePayment(14, 'price_1P62cbSCs9jNSXikk5LxOtxY')} className='bg-logoColor mt-7 text-white p-3 px-20 text-lg font-semibold rounded-xl'> Get started</button>
                         </div>
                     </div>
+
                     <div className=' w-3/5 shadow-xl rounded-large  p-5 px-7'>
                         <p className='text-start font-semibold text-lg text-paymenttext'>Annual</p>
                         <h1 className='text-5xl text-start my-5 font-extrabold'>$126<span className='text-lg font-bold p-1'> /year</span> </h1>
@@ -82,7 +96,7 @@ const Chooseplan = () => {
                             </div>
                         </div>
                         <div className='my-10 flex justify-center'>
-                            <button onClick={() => handlePayment(126)} className='bg-logoColor text-white p-3 px-20 text-lg font-semibold rounded-xl'> Get started</button>
+                            <button onClick={() => handlePayment(126, 'price_1P62c9SCs9jNSXikDnF9gyDc')} className='bg-logoColor text-white p-3 px-20 text-lg font-semibold rounded-xl'> Get started</button>
                         </div>
                     </div>
                 </div>

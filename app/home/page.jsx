@@ -11,6 +11,7 @@ import Generating from "../../components/Generating";
 import startNewSession, { generateTranscript, getHistory, getSessions, getSession } from "@/lib/fetch";
 import { SkryptlyContext } from "@/context/ContextProvider";
 import { useClerk } from "@clerk/nextjs";
+import Stripe from "stripe";
 
 
 export default function Home() {
@@ -125,6 +126,7 @@ export default function Home() {
 
   useEffect(() => {
     setisWelcomeOpen(true)
+    
     // handleNewChat()
   }, [])
 
@@ -135,12 +137,12 @@ export default function Home() {
       {
         <>
           <WelcomeModal isOpen={isWelcomeOpen} setisOpen={setisWelcomeOpen} setisTourOpen={setisTourOpen} />
-          <div className={` ${(isWelcomeOpen || isTourOpen) && 'blur-xs'} ${'grid grid-cols-12 lg:grid-cols-9 h-[700px]'}`}>
-            <div className="lg:col-span-2 col-span-3 px-2 ">
+          <div className={` ${(isWelcomeOpen || isTourOpen) && 'blur-xs'} ${'grid grid-cols-12 lg:grid-cols-9 h-screen overflow-hidden'}`}>
+            <div className="lg:col-span-2 col-span-3 pb-4 px-2 ">
 
               <SideBar handleSessionClick={handleSessionClick} handleNewChat={handleNewChat} allSessions={allSessions} />
             </div>
-            <main className="w-auto h-[700px] flex justify-between flex-col col-span-9 lg:col-span-7">
+            <main className="w-auto h-screen flex justify-between flex-col col-span-9 lg:col-span-7">
               <div className=" h-4/5 scroll-auto snap-y overflow-auto touch-pan-y p-6 pt-10 w-full">
                 {allChats?.length > 0 ?
                   <>

@@ -15,7 +15,7 @@ import { SkryptlyContext } from '@/context/ContextProvider'
 // import { nextButton } from '../app/components/utils/Tour'
 
 
-const SideBar = ({handleSessionClick,handleNewChat,allSessions}) => {
+const SideBar = ({ handleSessionClick, handleNewChat, allSessions }) => {
 
   const [isYoutubeOpen, setisYoutubeOpen] = useState(false)
   const [isProfileOpen, setisProfileOpen] = useState(false)
@@ -32,7 +32,7 @@ const SideBar = ({handleSessionClick,handleNewChat,allSessions}) => {
 
   const { signOut } = useClerk()
   const router = useRouter()
-const {userName} = useContext(SkryptlyContext)
+  const { userName } = useContext(SkryptlyContext)
 
   const handleLogout = () => {
     signOut()
@@ -51,9 +51,9 @@ const {userName} = useContext(SkryptlyContext)
       <YoutubeModal isOpen={isYoutubeOpen} setisOpen={setisYoutubeOpen} />
       <ProfileModal isOpen={isProfileOpen} setisOpen={setisProfileOpen} closeProfileModal={closeProfileModal} openChatHistory={openChatHistory} setmessageInformation={setmessageInformation} setisInformation={setisInformation} />
 
-      <div className={`${(isYoutubeOpen || isProfileOpen || isChatHistory || isInformation) && 'blur-xs'} m-2 bg-bgColor  h-full  rounded-xl shadow-lg shadow-black`}>
+      <div className={`${(isYoutubeOpen || isProfileOpen || isChatHistory || isInformation) && 'blur-xs'} m-2 bg-bgColor h-full  rounded-xl shadow-lg shadow-black`}>
 
-        <div className='p-3 h-[15%] flex flex-col m-1'>
+        <div className='p-3 flex flex-col m-1 h-[15%]'>
           <Link href='/' className='font-semibold text-white text-3xl tracking-wide my-2'>
             Skryptly<span className='text-logoColor'>.</span>
           </Link>
@@ -61,22 +61,25 @@ const {userName} = useContext(SkryptlyContext)
             <span className='text-xl leading-none '>+</span>  New Chat
           </button>
         </div>
-        <div className='flex  justify-between h-4/5 flex-col  '>
+        <div className='flex flex-col justify-between  h-[80%] '>
+          <div className=' flex flex-col p-2 m-1 h-[400px]'>
+          <p className='text-sm font-normal text-white my-3'>Previous Chats</p>
+            <div className='overflow-auto  overflow-x-hidden  '>
 
-          <div className=' flex flex-col p-2 m-1 flex-1'>
-            <p className='text-sm font-normal text-white my-3'>Previous Chats</p>
-            {allSessions.length > 0 &&
-              (
-                allSessions.map((session) => (
+              {allSessions.length > 0 &&
+                (
+                  allSessions.map((session) => (
 
-                  <button key={session._id} onClick={()=>handleSessionClick(session._id,session.channel_id)} className='text-start bg-white text-textColor text-sm font-normal  pl-4 m-1 rounded-lg p-2 font-base'>🗨️ {session.channel_url? getYouTubeChannelName(session.channel_url) : "Current Chat" }</button>
+                    <button key={session._id} onClick={() => handleSessionClick(session._id, session.channel_id)} className='text-start bg-white w-full text-textColor text-sm font-normal  m-1 rounded-lg p-2 font-base'>🗨️ {session.channel_url ? getYouTubeChannelName(session.channel_url) : "Current Chat"}</button>
 
-                ))
-              )
-            }
+                  ))
+                )
+              }
+            </div>
 
           </div>
-          <div className=' flex px-3 h-36 justify-between flex-col'>
+       
+          <div className=' flex px-3  min-h-32 justify-between flex-col'>
             <button className='youtube-btn text-center nextTour text-sm lg:text-base bg-white  text-textColor lg:pl-4 mx-1 rounded-xl p-2 font-semibold' onClick={() => handleYoutubeClick()}>Add Youtube Channel <Image src={Youtubelogo} width={40} height={40} alt='youtube-logo' className='inline p-1 lg:mx-2 align-middle' /></button>
             <div className='flex  justify-between profile-part' >
 
@@ -88,9 +91,7 @@ const {userName} = useContext(SkryptlyContext)
                 <Image src={Logoutlogo} width={100} height={10} alt='logout-logo' className='h-5 w-5' />
               </button>
             </div>
-
           </div>
-
         </div>
       </div>
 
