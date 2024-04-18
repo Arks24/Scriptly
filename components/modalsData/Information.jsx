@@ -6,8 +6,8 @@ const Information = ({ messageInformation,closemessageModal }) => {
   }
   return (
     <div className='p-6 w-full min-h-[180px]'>
-      <button className='text-right w-full' onClick={()=>handleCloseButton()}>
-            <p className='text-3xl px-6 text-white'>X</p>
+      <button className='text-right w-full outline-none'  onClick={()=>handleCloseButton()}>
+            <p className='text-3xl px-6  text-white'>X</p>
           </button>
       {messageInformation.type ?
         <>

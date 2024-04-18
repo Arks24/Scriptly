@@ -20,7 +20,7 @@ const Answer = ({ answer }) => {
             <div className=' relative '>
                 <Image src={Botlogo} width={100} height={20} alt='preview-logo' className='rounded-full  w-12 h-12 inline object-center' />
 
-                <p className='inline'>Genetating Time 2.004sec</p>
+                <p className='inline'>Generating time: 2.36sec</p>
                 {!copy ?
                     <button onClick={() => handleCopy()} className='absolute right-2 flex top-2 p-2 bg-bgColor/10 rounded-xl'>
                         <Image src={Copylogo} width={4} height={4} className='w-6 h-6 bg-opacity-0' alt='edit-logo ' />

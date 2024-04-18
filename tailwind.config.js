@@ -16,7 +16,8 @@ module.exports = {
       white:'#ffffff',
       black:'#0f0f0f',
       paymenttext:'#666666',
-      green:'#006F1F'
+      green:'#006F1F',
+      transparent: 'transparent',
     },
     extend: {
       backgroundImage: {

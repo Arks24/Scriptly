@@ -11,7 +11,7 @@ export const handleTourPart = () => {
         steps: [
           {
             element: document.querySelector('.youtube-btn'),
-            intro: "<div class='relative'> <p class=' text-lg font-semibold text-center leading-8'>Press this button to add a YouTube channel</p> <div class='arrow-youtube left-24 absolute -bottom-20'><svg fill='#EE51B2' height='130px' width='150px version='1.1' id='Layer_1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' viewBox='0 0 512.00 512.00' enable-background='new 0 0 512 512' xml:space='preserve' stroke='#EE51B2' stroke-width='0.00512'><g id='SVGRepo_bgCarrier' stroke-width='0'></g><g id='SVGRepo_tracerCarrier' stroke-linecap='round' stroke-linejoin='round'></g><g id='SVGRepo_iconCarrier'> <polygon points='283.7,298.7 283.7,0 198.3,0 198.3,298.7 70.3,298.7 241,512 411.7,298.7 '></polygon> </g></svg></div></div>",
+            intro: "<div class='relative'> <p class=' text-lg font-semibold text-center leading-8'>Press this button to add a YouTube channel</p> <div class='arrow-youtube left-20 absolute -bottom-20'><svg fill='#EE51B2' height='130px' width='150px version='1.1' id='Layer_1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' viewBox='0 0 512.00 512.00' enable-background='new 0 0 512 512' xml:space='preserve' stroke='#EE51B2' stroke-width='0.00512'><g id='SVGRepo_bgCarrier' stroke-width='0'></g><g id='SVGRepo_tracerCarrier' stroke-linecap='round' stroke-linejoin='round'></g><g id='SVGRepo_iconCarrier'> <polygon points='283.7,298.7 283.7,0 198.3,0 198.3,298.7 70.3,298.7 241,512 411.7,298.7 '></polygon> </g></svg></div></div>",
             tooltipClass: 'highlightsection',
             position: 'top',
             step: 1,

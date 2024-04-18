@@ -4,7 +4,7 @@ import {SkryptlyContext} from '@/context/ContextProvider'
 
 const ChatHistory = ({closeModal,setisInformation,setmessageInformation,closeProfileModal }) => {
  
-   const {setallChatHistory,userId} = useContext(SkryptlyContext)
+   const {setallChatHistory,userId,setcurrentChannelId,setcurrentSessionId} = useContext(SkryptlyContext)
   const handleYes = () => {
     closeProfileModal()
     closeModal()
@@ -15,6 +15,8 @@ const ChatHistory = ({closeModal,setisInformation,setmessageInformation,closePro
         {type:'',
         text:'Your chat has been deleted'}
       )
+      setcurrentChannelId('')
+      setcurrentSessionId('')
       setisInformation(true)
     }
     deleteChatHistory()

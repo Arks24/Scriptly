@@ -8,10 +8,9 @@ const Profile = ({ closeModal, closeProfileModal, openChatHistory, setmessageInf
   const { signOut } = useClerk()
   const router = useRouter()
   const {user} = useUser()
-  const subscriptionExpire = user.publicMetadata.stripeCurrentPeriodEnd
+  const subscriptionExpire = user?.publicMetadata?.stripeCurrentPeriodEnd
   function formatDate(milliseconds) {
     let date = new Date(milliseconds*1000);
-    console.log("date",date)
     const day = date.getDate().toString().padStart(2, '0');
     const month = (date.getMonth() + 1).toString().padStart(2, '0');
     const year = date.getFullYear();

@@ -10,17 +10,17 @@ import WelcomeModal from "../../components/modals/WelcomeModal";
 import Generating from "../../components/Generating";
 import startNewSession, { generateTranscript, getHistory, getSessions, getSession } from "@/lib/fetch";
 import { SkryptlyContext } from "@/context/ContextProvider";
-import { useClerk, useUser } from "@clerk/nextjs";
-import Stripe from "stripe";
-
+import { useClerk, useSignUp } from "@clerk/nextjs";
+import { useUser } from '@clerk/clerk-react';
+import MessageModelWrapper from "@/components/modals/MessageModalWrapper";
 
 export default function Home() {
   const { user } = useClerk()
-    const userData = { ...user }
-    const userId = userData.id
+  const userData = { ...user }
+  const userId = userData.id
 
   const [allChats, setallChats] = useState([])
-  const { currentChannelId, currentSessionId, setcurrentChannelId, setcurrentSessionId,allChatHistory } = useContext(SkryptlyContext)
+  const { currentChannelId, currentSessionId, setcurrentChannelId, setcurrentSessionId, allChatHistory } = useContext(SkryptlyContext)
 
   //   const allChat = [
   //     {
@@ -62,27 +62,33 @@ export default function Home() {
   const [isWelcomeOpen, setisWelcomeOpen] = useState(false)
   const [isTourOpen, setisTourOpen] = useState(false)
   const [isAnsGenerated, setisAnsGenerated] = useState(false)
-  const [isStopLoading, setisStopLoading] = useState(true)
+  const [isValidSession, setisValidSession] = useState(false)
+
+  const [isStopLoading, setisStopLoading] = useState(false)
   const [allSessions, setallSessions] = useState([])
-
-  const {isSignedUp} = useUser()
-
   
-  console.log("from home page", currentChannelId, currentSessionId,userId)
+  console.log("from home page", currentChannelId, currentSessionId, userId,isAnsGenerated,isStopLoading)
   const handleQuery = (query, role) => {
-    setallChats([...allChats, { role: role, content: query }])
-    const path = '/home'
-    async function fetchData() {
-      const result = await generateTranscript(query, userId, path, currentSessionId, currentChannelId)
-      if (result) {
-        const answer = { role: result.role, content: result.response }
-        setallChats(prev => [...prev, answer])
-        setisAnsGenerated(false)
-        setisStopLoading(false)
-      }
+    if(!currentChannelId && !currentSessionId) {
+      setisValidSession(true)
+      console.log("checking -",isAnsGenerated,isStopLoading)
     }
+    else{
 
-    fetchData()
+      setallChats([...allChats, { role: role, content: query }])
+      const path = '/home'
+      async function fetchData() {
+        const result = await generateTranscript(query, userId, path, currentSessionId, currentChannelId)
+        if (result) {
+          const answer = { role: result.role, content: result.response }
+          setallChats(prev => [...prev, answer])
+          setisAnsGenerated(false)
+          setisStopLoading(false)
+        }
+      }
+      fetchData()
+    }
+  
   }
   const handleSessionClick = (sessionId, channelId) => {
     console.log("handle session click", sessionId, channelId)
@@ -108,17 +114,17 @@ export default function Home() {
   console.log('allsession', allSessions)
 
   useEffect(() => {
-    if(userId){
-    async function fetchSessions() {
-      const response = await getSessions(userId)
-      setallSessions(response)
-      if(response.length===0){
-        setallChats([])
+    if (userId) {
+      async function fetchSessions() {
+        const response = await getSessions(userId)
+        setallSessions(response)
+        if (response.length === 0) {
+          setallChats([])
+        }
       }
-    } 
-   fetchSessions()
-  }
-  }, [currentChannelId, currentSessionId, allSessions.length,allChatHistory,userId])
+      fetchSessions()
+    }
+  }, [currentChannelId, currentSessionId, allSessions.length, allChatHistory, userId])
 
   useEffect(() => {
     if (handleScroll.current) {
@@ -127,8 +133,9 @@ export default function Home() {
   }, [allChats])
 
   useEffect(() => {
-    if(isSignedUp) setisWelcomeOpen(true)
-    
+    console.log(userData)
+    setisWelcomeOpen(true)
+
     // handleNewChat()
   }, [])
 
@@ -136,66 +143,66 @@ export default function Home() {
 
   return (
     <>
-      {
-        <>
-          <WelcomeModal isOpen={isWelcomeOpen} setisOpen={setisWelcomeOpen} setisTourOpen={setisTourOpen} />
-          <div className={` ${(isWelcomeOpen || isTourOpen) && 'blur-xs'} ${'grid grid-cols-12 lg:grid-cols-9 h-screen overflow-hidden'}`}>
-            <div className="lg:col-span-2 col-span-3 pb-4 px-2 ">
+      <WelcomeModal isOpen={isWelcomeOpen} setisOpen={setisWelcomeOpen} setisTourOpen={setisTourOpen} />
+      {isValidSession && <MessageModelWrapper isOpen={isValidSession} setisOpen={setisValidSession} messageInformation={{
+        text: 'Please add a Youtube Channel to start a new chat. or select a previous chat.'
+      }} />}
+      <div className={` ${(isWelcomeOpen || isTourOpen) && 'blur-xs'} ${'grid grid-cols-12 lg:grid-cols-9 h-screen '}`}>
+        <div className="lg:col-span-2 col-span-3 pb-4 px-2 ">
 
-              <SideBar handleSessionClick={handleSessionClick} handleNewChat={handleNewChat} allSessions={allSessions} />
-            </div>
-            <main className="w-auto h-screen flex justify-between flex-col col-span-9 lg:col-span-7">
-              <div className=" h-4/5 scroll-auto snap-y overflow-auto touch-pan-y p-6 pt-10 w-full">
-                {allChats?.length > 0 ?
-                  <>
-                    {
-                      allChats?.map((item, index) => {
-                        return (
-                          <>
 
-                            <div className="my-4" key={index}>
+          <SideBar handleSessionClick={handleSessionClick} handleNewChat={handleNewChat} allSessions={allSessions} />
+        </div>
+        <main className="w-auto h-screen flex justify-between flex-col col-span-9 lg:col-span-7">
+          <div className=" h-4/5 scroll-auto snap-y overflow-auto touch-pan-y p-6 pt-10 w-full">
+            {allChats?.length > 0 ?
+              <>
+                {
+                  allChats?.map((item, index) => {
+                    return (
+                      <>
 
-                              {
-                                item.role === 'user' ? <Question setisStopLoading={setisStopLoading} question={item} /> : <Answer answer={item} />
-                              }
+                        <div className="my-4" key={index}>
 
-                            </div>
-                            <div ref={handleScroll}></div>
-                          </>
-                        )
-                      })
+                          {
+                            item.role === 'user' ? <Question setisStopLoading={setisStopLoading} handleQuery={handleQuery} setisAnsGenerated={setisAnsGenerated} question={item} /> : <Answer answer={item} />
+                          }
 
-                    }
-                    <div className="my-4">
-                      {(isAnsGenerated && isStopLoading) && <Generating isStopLoading={isStopLoading} setisStopLoading={setisStopLoading} />}
-                    </div>
-                  </>
-                  :
-                  <div className="flex flex-col h-full align-middle justify-center items-center">
-                    <div className="p-2 my-2">
-                      <Image src={LogoImage} className="rounded-xl border" width={100} height={80} alt="logo" />
-                    </div>
-                    <h1 className="p-3 text-center text-xl tracking-wide font-normal">What would you like to write about today?</h1>
-                    <h2 className="text-center text-lg font-normal p-1">
-                      (tip:don&apos;t post forgot to add a Youtube Channel)
-                    </h2>
-                  </div>
+                        </div>
+                        <div ref={handleScroll}></div>
+                      </>
+                    )
+                  })
+
                 }
-
-
+                <div className="my-4">
+                  {(isAnsGenerated && isStopLoading) && <Generating isStopLoading={isStopLoading} setisStopLoading={setisStopLoading} />}
+                </div>
+              </>
+              :
+              <div className="flex flex-col h-full align-middle justify-center items-center">
+                <div className="p-2 my-2">
+                  <Image src={LogoImage} className="rounded-xl border" width={100} height={80} alt="logo" />
+                </div>
+                <h1 className="p-3 text-center text-2xl  font-normal">What would you like to write about today?</h1>
+                <h2 className="text-center text-lg font-normal p-1">
+                  (tip: don&apos;t forgot to add a Youtube Channel)
+                </h2>
               </div>
+            }
 
-
-              <div className="h-[15%]">
-                <InputElement setisAnsGenerated={setisAnsGenerated} handleQuery={handleQuery} setisStopLoading={setisStopLoading} />
-              </div>
-
-
-            </main>
 
           </div>
-        </>
-      }
+
+
+          <div className="h-[15%]">
+            <InputElement setisAnsGenerated={setisAnsGenerated} handleQuery={handleQuery} setisStopLoading={setisStopLoading} />
+          </div>
+
+
+        </main>
+
+      </div>
     </>
   );
 }
