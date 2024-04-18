@@ -14,6 +14,7 @@ import { useRouter } from 'next/navigation'
 import { SkryptlyContext } from '@/context/ContextProvider'
 import messageIcon from '/image/message-icon.svg'
 import plusIcon from '/image/plus-icon.svg'
+import { getTimeStamp } from '@/lib/utils'
 // import { nextButton } from '../app/components/utils/Tour'
 
 
@@ -72,7 +73,7 @@ const SideBar = ({ handleSessionClick, handleNewChat, allSessions }) => {
                 (
                   allSessions.map((session) => (
 
-                    <button key={session._id} onClick={() => handleSessionClick(session._id, session.channel_id)} className='text-start bg-white  text-textColor text-sm font-normal  m-1 rounded-lg p-2 font-base'><Image src={messageIcon} width={100} height={0} className='w-5 h-5 inline cursor-pointer  text-center fill-transparent ' alt='message-icon' /> {session.channel_url ? getYouTubeChannelName(session.channel_url) : "Current Chat"}</button>
+                    <button key={session._id} onClick={() => handleSessionClick(session._id, session.channel_id)} className='text-start bg-white flex gap-1 text-textColor text-sm font-normal  m-1 rounded-lg p-2 font-base'><Image src={messageIcon} width={100} height={0} className='w-5 h-5 inline-block cursor-pointer   text-center fill-transparent ' alt='message-icon' /> {session.channel_url ? <><span className={`${getYouTubeChannelName(session.channel_url).length>15 && 'truncate' } inline-block overflow-hidden w-3/5`}>{getYouTubeChannelName(session.channel_url)}</span> <span className="text-[10px] inline-block w-2/5  ml-6">{getTimeStamp(session.timestamp)}</span></> : <><span>Current Chat</span> <span className="text-[10px] ml-14">{getTimeStamp(session.timestamp)}</span></>}</button>
 
                   ))
                 )
