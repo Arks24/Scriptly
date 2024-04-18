@@ -10,17 +10,18 @@ import WelcomeModal from "../../components/modals/WelcomeModal";
 import Generating from "../../components/Generating";
 import startNewSession, { generateTranscript, getHistory, getSessions, getSession } from "@/lib/fetch";
 import { SkryptlyContext } from "@/context/ContextProvider";
-import { useClerk, useSignUp } from "@clerk/nextjs";
+import { clerkClient, currentUser, useClerk, useSignUp } from "@clerk/nextjs";
 import { useUser } from '@clerk/clerk-react';
 import MessageModelWrapper from "@/components/modals/MessageModalWrapper";
+import { checkUserSignUp } from "@/lib/stripe";
 
 export default function Home() {
-  const { user } = useClerk()
-  const userData = { ...user }
-  const userId = userData.id
-
+  // const { user } = useClerk()
+  // const userData = { ...user }
+  
   const [allChats, setallChats] = useState([])
-  const { currentChannelId, currentSessionId, setcurrentChannelId, setcurrentSessionId, allChatHistory } = useContext(SkryptlyContext)
+  const { currentChannelId, currentSessionId, setcurrentChannelId, setcurrentSessionId, allChatHistory,userData } = useContext(SkryptlyContext)
+  const userId = userData.id
 
   //   const allChat = [
   //     {
@@ -66,14 +67,14 @@ export default function Home() {
 
   const [isStopLoading, setisStopLoading] = useState(false)
   const [allSessions, setallSessions] = useState([])
-  
-  console.log("from home page", currentChannelId, currentSessionId, userId,isAnsGenerated,isStopLoading)
+
+  console.log("from home page", currentChannelId, currentSessionId, userId, isAnsGenerated, isStopLoading)
   const handleQuery = (query, role) => {
-    if(!currentChannelId && !currentSessionId) {
+    if (!currentChannelId && !currentSessionId) {
       setisValidSession(true)
-      console.log("checking -",isAnsGenerated,isStopLoading)
+      console.log("checking -", isAnsGenerated, isStopLoading)
     }
-    else{
+    else {
 
       setallChats([...allChats, { role: role, content: query }])
       const path = '/home'
@@ -88,7 +89,7 @@ export default function Home() {
       }
       fetchData()
     }
-  
+
   }
   const handleSessionClick = (sessionId, channelId) => {
     console.log("handle session click", sessionId, channelId)
@@ -131,10 +132,24 @@ export default function Home() {
       handleScroll.current.scrollIntoView({ behavior: "smooth" })
     }
   }, [allChats])
+  
+  const checkSignUp = useUser()
+  const newData = {...checkSignUp.user}
+  const isUserSignup = newData.publicMetadata
 
+  console.log('isUserSignup', isUserSignup)
   useEffect(() => {
-    console.log(userData)
-    setisWelcomeOpen(true)
+    
+    if (isUserSignup) {
+      setisWelcomeOpen(true)
+      async function checkUserSignUp() {
+        const checkUser =await checkUserSignUp()
+        console.log('checkUser', checkUser)
+        return
+      }
+     checkUserSignUp()
+    }
+
 
     // handleNewChat()
   }, [])

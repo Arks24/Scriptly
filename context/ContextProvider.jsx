@@ -9,6 +9,7 @@ export const SkryptlyContext = createContext({
     userId: '',
     userEmail: '',
     userName:'',
+    userData: {},
     allChatHistory: () => { },
     setcurrentChannelId: () => { },
     setcurrentSessionId: () => { }
@@ -31,7 +32,7 @@ const ContextProvider = ({ children }) => {
      const userName = userData.fullName
 
     return (
-        <SkryptlyContext.Provider value={{ currentChannelId, currentSessionId, setcurrentChannelId, setcurrentSessionId, allChatHistory, setallChatHistory, userId,userEmail,userName }}>
+        <SkryptlyContext.Provider value={{ currentChannelId, currentSessionId, setcurrentChannelId, setcurrentSessionId, allChatHistory, setallChatHistory, userId,userEmail,userName,userData }}>
             {children}
         </SkryptlyContext.Provider>
     )
