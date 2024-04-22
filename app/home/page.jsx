@@ -201,7 +201,7 @@ export default function Home() {
                 </div>
                 <h1 className="p-3 text-center text-2xl  font-normal">What would you like to write about today?</h1>
                 <h2 className="text-center text-lg font-normal p-1">
-                  (tip: don&apos;t forgot to add a Youtube Channel)
+                  (tip: don&apos;t forget to add a Youtube Channel)
                 </h2>
               </div>
             }
