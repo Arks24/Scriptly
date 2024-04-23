@@ -16,8 +16,7 @@ import MessageModelWrapper from "@/components/modals/MessageModalWrapper";
 import { checkUserSignUp } from "@/lib/stripe";
 
 export default function Home() {
-  // const { user } = useClerk()
-  // const userData = { ...user }
+
   
   const [allChats, setallChats] = useState([])
   const { currentChannelId, currentSessionId, setcurrentChannelId, setcurrentSessionId, allChatHistory,userData } = useContext(SkryptlyContext)
