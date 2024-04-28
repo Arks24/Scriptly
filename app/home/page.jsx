@@ -17,9 +17,9 @@ import { checkUserSignUp } from "@/lib/stripe";
 
 export default function Home() {
 
-  
+
   const [allChats, setallChats] = useState([])
-  const { currentChannelId, currentSessionId, setcurrentChannelId, setcurrentSessionId, allChatHistory,userData } = useContext(SkryptlyContext)
+  const { currentChannelId, currentSessionId, setcurrentChannelId, setcurrentSessionId, allChatHistory, userData } = useContext(SkryptlyContext)
   const userId = userData.id
 
   //   const allChat = [
@@ -106,8 +106,8 @@ export default function Home() {
       const response = await startNewSession(userId);
       setcurrentChannelId(response.channelId);
       setcurrentSessionId(response.sessionId);
-      setallSessions(prev => [response, ...prev]);
       setallChats([]);
+      setallSessions(prev => [response, ...prev]);
     }
     fetchNewSession();
   };
@@ -131,28 +131,28 @@ export default function Home() {
       handleScroll.current.scrollIntoView({ behavior: "smooth" })
     }
   }, [allChats])
-  
+
   const checkSignUp = useUser()
-  const newData = {...checkSignUp.user}
+  const newData = { ...checkSignUp.user }
   const isUserSignup = newData.publicMetadata
 
   console.log('isUserSignup', isUserSignup)
   useEffect(() => {
-    
+
     if (isUserSignup) {
       setisWelcomeOpen(true)
       async function checkUserSignUp() {
-        const checkUser =await checkUserSignUp()
+        const checkUser = await checkUserSignUp()
         console.log('checkUser', checkUser)
         return
       }
-     checkUserSignUp()
+      checkUserSignUp()
     }
-
-
     // handleNewChat()
   }, [])
-
+  useEffect(() => {
+    setallChats([])
+  }, [allSessions.length])
   console.log("allChats", allChats)
 
   return (
