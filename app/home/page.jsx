@@ -104,8 +104,8 @@ export default function Home() {
   const handleNewChat = () => {
     async function fetchNewSession() {
       const response = await startNewSession(userId);
-      setcurrentChannelId(response.channelId);
-      setcurrentSessionId(response.sessionId);
+      setcurrentChannelId(response?.channelId);
+      setcurrentSessionId(response?.sessionId);
       setallChats([]);
       setallSessions(prev => [response, ...prev]);
     }
@@ -152,7 +152,7 @@ export default function Home() {
   }, [])
   useEffect(() => {
     setallChats([])
-  }, [allSessions.length])
+  }, [allSessions])
   console.log("allChats", allChats)
 
   return (

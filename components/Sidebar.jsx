@@ -69,7 +69,7 @@ const SideBar = ({ handleSessionClick, handleNewChat, allSessions }) => {
           <p className='text-sm font-normal text-white my-2 mx-2'>Previous Chats</p>
             <div className='overflow-auto flex flex-col overflow-x-hidden  '>
 
-              {allSessions.length > 0 &&
+              {allSessions?.length > 0 &&
                 (
                   allSessions.map((session) => (
 

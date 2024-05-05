@@ -52,7 +52,7 @@ const Youtube = ({closeModal}) => {
       settotalYoutubeChannel(fetchChannels)
     }
     fetchChannels()
-}, [totalYoutubeChannel.length])
+}, [totalYoutubeChannel])
 
   return (
     <>
@@ -78,7 +78,7 @@ const Youtube = ({closeModal}) => {
         </div>
         <div className='p-4 px-8 my-2'>
           <p className='text-[20px] text-white font-normal my-3 '>Added Channels:</p>
-          {totalYoutubeChannel.length > 0 && totalYoutubeChannel.map((item) => (
+          {totalYoutubeChannel?.length > 0 && totalYoutubeChannel.map((item) => (
             <div className='flex justify-between my-1 w-4/5' key={item._id}>
               <p className='text-base font-normal my-1 text-white'>{item.channel_url}</p>
               <button onClick={()=>handleDeleteChannel(item._id)}>
