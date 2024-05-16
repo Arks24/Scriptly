@@ -1,7 +1,7 @@
 {
     "version": 2,
     "functions": {
-        "**": {
+        "app/home": {
             "maxDuration": 30
         }
     }
