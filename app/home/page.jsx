@@ -15,6 +15,8 @@ import { useUser } from '@clerk/clerk-react';
 import MessageModelWrapper from "@/components/modals/MessageModalWrapper";
 import { checkUserSignUp } from "@/lib/stripe";
 
+export const maxDuration = 300
+
 export default function Home() {
 
 
