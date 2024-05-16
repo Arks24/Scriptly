@@ -1,7 +1,7 @@
 {
     "version": 2,
     "functions": {
-        "/home": {
+        "home": {
             "maxDuration": 30
         }
     }
