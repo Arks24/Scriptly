@@ -20,7 +20,7 @@
     "next": "14.0.4",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-joyride": "^2.8.0",
+    "react-joyride": "^2.8.1",
     "spinners-react": "^1.0.7",
     "stripe": "^8.220.0",
     "svix": "^1.21.0",
